@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 150359106}
   - component: {fileID: 150359105}
   - component: {fileID: 150359104}
+  - component: {fileID: 150359107}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -222,6 +223,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &150359107
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150359103}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6b286b0a97e3dce4abd2e7e8ab1b6d90, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1056538714
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,5 +399,9 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4c5c496fd8db56349b134eaf1f44ae9e, type: 2}
+    - target: {fileID: 1774197205693384631, guid: 2ffa59a059f1e1942b2b441f216dbca8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ffa59a059f1e1942b2b441f216dbca8, type: 3}

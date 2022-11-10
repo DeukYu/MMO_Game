@@ -359,7 +359,16 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
 "Assets/Scripts/Controllers/PlayerController.cs"
+"Assets/Scripts/Managers/Contents/MapManager.cs"
+"Assets/Scripts/Managers/Core/Poolable.cs"
+"Assets/Scripts/Managers/Core/PoolManager.cs"
+"Assets/Scripts/Managers/Core/ResourceManager.cs"
+"Assets/Scripts/Managers/Core/SceneManagerEx.cs"
+"Assets/Scripts/Managers/Managers.cs"
+"Assets/Scripts/Scenes/BaseScene.cs"
+"Assets/Scripts/Scenes/GameScene.cs"
 "Assets/Scripts/Utils/Define.cs"
+"Assets/Scripts/Utils/Extension.cs"
 "Assets/Scripts/Utils/Util.cs"
 -langversion:9.0
 

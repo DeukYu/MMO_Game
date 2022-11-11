@@ -16,7 +16,7 @@ public class PlayerController : CreatureController
     }
     void LateUpdate()
     {
-        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10.0f);   
+        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10.0f);
     }
     // 키보드 입력 
     void GetDirInput()

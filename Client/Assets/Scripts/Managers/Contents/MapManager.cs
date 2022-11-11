@@ -11,6 +11,7 @@ public class MapManager
     public int MaxX { get; set; }
     public int MinY { get; set; }
     public int MaxY { get; set; }
+
     bool[,] _collision;
     public bool CanGo(Vector3Int cellPos)
     {
@@ -48,10 +49,10 @@ public class MapManager
         int yCount = MaxY - MinY + 1;
         _collision = new bool[yCount, xCount];
 
-        for(int y = 0; y < yCount; y++)
+        for (int y = 0; y < yCount; y++)
         {
             string line = reader.ReadLine();
-            for(int x = 0; x < xCount; x++)
+            for (int x = 0; x < xCount; x++)
             {
                 _collision[y, x] = (line[x] == '1' ? true : false);
             }

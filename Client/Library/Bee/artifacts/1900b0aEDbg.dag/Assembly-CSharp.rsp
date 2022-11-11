@@ -362,6 +362,7 @@
 "Assets/Scripts/Controllers/MonsterController.cs"
 "Assets/Scripts/Controllers/PlayerController.cs"
 "Assets/Scripts/Managers/Contents/MapManager.cs"
+"Assets/Scripts/Managers/Contents/ObjectManager.cs"
 "Assets/Scripts/Managers/Core/Poolable.cs"
 "Assets/Scripts/Managers/Core/PoolManager.cs"
 "Assets/Scripts/Managers/Core/ResourceManager.cs"

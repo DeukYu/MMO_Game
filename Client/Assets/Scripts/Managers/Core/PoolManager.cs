@@ -11,14 +11,14 @@ public class PoolManager
         public Transform Root { get; set; }
 
         Stack<Poolable> _poolStack = new Stack<Poolable>();
-        
-        public void Init(GameObject original, int count =5)
+
+        public void Init(GameObject original, int count = 5)
         {
             Original = original;
             Root = new GameObject().transform;
             Root.name = $"{ original.name}_Root";
 
-            for(int i=0;i<count;i++)
+            for (int i = 0; i < count; i++)
             {
                 Push(Create());
             }

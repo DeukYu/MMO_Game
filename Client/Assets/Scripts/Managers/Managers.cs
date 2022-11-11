@@ -9,8 +9,9 @@ public class Managers : MonoBehaviour
 
     #region Contents
     MapManager _map = new MapManager();
-
+    ObjectManager _object = new ObjectManager();
     public static MapManager Map { get { return Instance._map; } }
+    public static ObjectManager Object { get { return Instance._object; } }
     #endregion
 
     #region Core
@@ -30,14 +31,14 @@ public class Managers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     static void Init()
     {
-        if(s_instance == null)
+        if (s_instance == null)
         {
             GameObject go = GameObject.Find("@Managers");
-            if(go == null)
+            if (go == null)
             {
                 go = new GameObject { name = "@Managers" };
                 go.AddComponent<Managers>();

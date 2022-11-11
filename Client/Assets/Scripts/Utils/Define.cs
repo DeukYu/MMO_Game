@@ -8,6 +8,7 @@ public class Define : MonoBehaviour
     {
         Idle,
         Moving,
+        Attack,
         Skill,
         Dead,
     }

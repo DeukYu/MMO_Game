@@ -12,7 +12,7 @@ public class CreatureController : MonoBehaviour
     protected SpriteRenderer _spriteRenderer;
 
     protected CreatureState _state = CreatureState.Idle;
-    public CreatureState State
+    public virtual CreatureState State
     {
         get { return _state; }
         set

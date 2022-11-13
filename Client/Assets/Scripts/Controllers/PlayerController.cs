@@ -155,7 +155,7 @@ public class PlayerController : CreatureController
         // 대기 시간
         _rangeSkill = false;
         yield return new WaitForSeconds(0.3f);
-        State = CreatureState.Idle;
+        State = CreatureState.Moving;
         _coAttack = null;
     }
     IEnumerator CoStartShootArrow()
@@ -168,7 +168,11 @@ public class PlayerController : CreatureController
         // 대기 시간
         _rangeSkill = true;
         yield return new WaitForSeconds(0.3f);
-        State = CreatureState.Idle;
+        State = CreatureState.Moving;
         _coAttack = null;
+    }
+    public override void OnDamaged()
+    {
+        Debug.Log("Player HIT ! ");
     }
 }

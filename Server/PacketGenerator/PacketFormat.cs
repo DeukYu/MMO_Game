@@ -10,61 +10,65 @@ namespace PacketGenerator
     {
         // {0} : 패킷 등록 
         public static string managerFormat =
-@"using ServerCore;
+@"using Google.Protobuf;
+using Google.Protobuf.Protocol;
+using ServerCore;
 using System;
 using System.Collections.Generic;
 
-public class PacketManager
+class PacketManager
 {{
-    #region Singleton
-    static PacketManager _instance = new PacketManager();
-    public static PacketManager Instance {{ get {{ return _instance; }} }}
-    #endregion
-    PacketManager()
-    {{
-        Register();
-    }}
-    Dictionary<ushort, Func<PacketSession, ArraySegment<byte>, IPacket>> _makeFunc = new Dictionary<ushort, Func<PacketSession, ArraySegment<byte>, IPacket>>();
-    Dictionary<ushort, Action<PacketSession, IPacket>> _handler = new Dictionary<ushort, Action<PacketSession, IPacket>>();
-    public void Register()
-    {{
-        {0}
-    }}
-    public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer, Action<PacketSession, IPacket> onRecvCallback = null)
-    {{
-        ushort count = 0;
-        ushort size = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
-        count += 2;
-        ushort id = BitConverter.ToUInt16(buffer.Array, buffer.Offset + count);
-        count += 2;
+	#region Singleton
+	static PacketManager _instance = new PacketManager();
+	public static PacketManager Instance {{ get {{ return _instance; }} }}
+	#endregion
 
-        Func<PacketSession, ArraySegment<byte>, IPacket> func = null;
-        if (_makeFunc.TryGetValue(id, out func))
-        {{ 
-            IPacket packet = func.Invoke(session, buffer);
-            if (onRecvCallback != null)
-                onRecvCallback.Invoke(session, packet);
-            else
-                HandlePacket(session, packet);
-        }}
-    }}
+	PacketManager()
+	{{
+		Register();
+	}}
 
-    T MakePacket<T>(PacketSession session, ArraySegment<byte> buffer) where T : IPacket, new()
-    {{
-        T pkt = new T();
-        pkt.Read(buffer);
-        return pkt;
-    }}
-    public void HandlePacket(PacketSession session, IPacket packet)
-    {{
-        Action<PacketSession, IPacket> action = null;
-        if (_handler.TryGetValue(packet.Protocol, out action))
-            action.Invoke(session, packet);
-    }}
+	Dictionary<ushort, Action<PacketSession, ArraySegment<byte>, ushort>> _onRecv = new Dictionary<ushort, Action<PacketSession, ArraySegment<byte>, ushort>>();
+	Dictionary<ushort, Action<PacketSession, IMessage>> _handler = new Dictionary<ushort, Action<PacketSession, IMessage>>();
+		
+	public void Register()
+	{{{0}
+	}}
+
+	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
+	{{
+		ushort count = 0;
+
+		ushort size = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
+		count += 2;
+		ushort id = BitConverter.ToUInt16(buffer.Array, buffer.Offset + count);
+		count += 2;
+
+		Action<PacketSession, ArraySegment<byte>, ushort> action = null;
+		if (_onRecv.TryGetValue(id, out action))
+			action.Invoke(session, buffer, id);
+	}}
+
+	void MakePacket<T>(PacketSession session, ArraySegment<byte> buffer, ushort id) where T : IMessage, new()
+	{{
+		T pkt = new T();
+		pkt.MergeFrom(buffer.Array, buffer.Offset + 4, buffer.Count - 4);
+		Action<PacketSession, IMessage> action = null;
+		if (_handler.TryGetValue(id, out action))
+			action.Invoke(session, pkt);
+	}}
+
+	public Action<PacketSession, IMessage> GetPacketHandler(ushort id)
+	{{
+		Action<PacketSession, IMessage> action = null;
+		if (_handler.TryGetValue(id, out action))
+			return action;
+		return null;
+	}}
 }}";
 
-        // {0} : 패킷 이름
-        public static string managerRegisterFormat =
+		// {0} : 패킷 이름
+		public static string managerRegisterFormat =
 @"
         _onRecv.Add((ushort)MsgId.{0}, MakePacket<{1}>);
         _handler.Add((ushort)MsgId.{0}, PacketHandler.{1}Handler);";

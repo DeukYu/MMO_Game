@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "v3QXdLEFEKTebkQSmssOYnHCWSYk25jjy/yGbfgIeOuKWbm9vlZcAuu6tInCPRAHCxMRCnuMmvXLVCwq4CuMrA==",
+  "success": true,
+  "projectFilePath": "D:\\github\\MMO_Game\\Server\\Server\\Server.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512"
+  ],
+  "logs": []
+}

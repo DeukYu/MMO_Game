@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameScene : BaseScene
@@ -11,6 +9,8 @@ public class GameScene : BaseScene
         SceneType = Define.Scene.Game;
 
         Managers.Map.LoadMap(1);
+
+        Screen.SetResolution(640, 480, false);
 
         //GameObject player = Managers.Resource.Instantiate("Creature/Player");
         //player.name = "Player";

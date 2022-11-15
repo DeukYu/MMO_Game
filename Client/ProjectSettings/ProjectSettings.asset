@@ -897,11 +897,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: dd4c0252-0912-4d17-a10d-58750f513573
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Client
+  organizationId: ldy8070_unity
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

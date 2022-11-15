@@ -19,20 +19,17 @@ namespace Server
         {
             Console.WriteLine($"OnConnected : {endPoint}");
 
-            Person person = new Person()
+            S2C_Chat chat = new S2C_Chat()
             {
-                Id = 1234,
-                Name = "John Doe",
-                Email = "jdoe@example.com",
-                Phones = { new PhoneNumber { Number = "555-4321", Type = Person.Types.PhoneType.Home } }
+                Context = "안녕하세요"
             };
 
-            ushort size = (ushort)person.CalculateSize();
+            ushort size = (ushort)chat.CalculateSize();
             byte[] sendBuffer = new byte[size + 4];
             Array.Copy(BitConverter.GetBytes(size + 4), 0, sendBuffer, 0, sizeof(ushort));
-            ushort protocolId = 1;
+            ushort protocolId = (ushort)MsgId.S2CChat;
             Array.Copy(BitConverter.GetBytes(protocolId), 0, sendBuffer, 2, sizeof(ushort));
-            Array.Copy(person.ToByteArray(), 0, sendBuffer, 4, size);
+            Array.Copy(chat.ToByteArray(), 0, sendBuffer, 4, size);
 
             Send(new ArraySegment<byte>(sendBuffer));
         }

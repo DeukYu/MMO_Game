@@ -34,7 +34,7 @@ class PacketManager
 		ushort id = BitConverter.ToUInt16(buffer.Array, buffer.Offset + count);
 		count += 2;
 
-		Action<PacketSession, ArraySegment<byte>, ushort> action = null;
+		Action<PacketSession, ArraySegment<byte>, ushort>? action = null;
 		if (_onRecv.TryGetValue(id, out action))
 			action.Invoke(session, buffer, id);
 	}
@@ -43,14 +43,14 @@ class PacketManager
 	{
 		T pkt = new T();
 		pkt.MergeFrom(buffer.Array, buffer.Offset + 4, buffer.Count - 4);
-		Action<PacketSession, IMessage> action = null;
+		Action<PacketSession, IMessage>? action = null;
 		if (_handler.TryGetValue(id, out action))
 			action.Invoke(session, pkt);
 	}
 
-	public Action<PacketSession, IMessage> GetPacketHandler(ushort id)
+	public Action<PacketSession, IMessage>? GetPacketHandler(ushort id)
 	{
-		Action<PacketSession, IMessage> action = null;
+		Action<PacketSession, IMessage>? action = null;
 		if (_handler.TryGetValue(id, out action))
 			return action;
 		return null;

@@ -67,7 +67,8 @@ class PacketManager
 	}}
 }}";
 
-		// {0} : 패킷 이름
+		// {0} : MsgId
+		// {1} : 패킷 이름
 		public static string managerRegisterFormat =
 @"
         _onRecv.Add((ushort)MsgId.{0}, MakePacket<{1}>);

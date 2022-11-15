@@ -22,6 +22,7 @@ namespace Server.Session
                 int sessionId = ++_sessionId;
                 ClientSession session = new ClientSession();
                 session.SessionId = sessionId;
+                _sessions.Add(sessionId, session);
 
                 Console.WriteLine($"Connected : {sessionId}");
                 return session;
@@ -33,9 +34,7 @@ namespace Server.Session
             {
                 ClientSession? session = null;
                 _sessions.TryGetValue(id, out session);
-#pragma warning disable CS8603 // 가능한 null 참조 반환입니다.
                 return session;
-#pragma warning restore CS8603 // 가능한 null 참조 반환입니다.
             }
         }
         public void Remove(ClientSession session)

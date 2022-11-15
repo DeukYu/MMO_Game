@@ -21,8 +21,8 @@ class PacketManager
 		
 	public void Register()
 	{
-        _onRecv.Add((ushort)MsgId.C2SCHAT, MakePacket<C2S_2SCHAT>);
-        _handler.Add((ushort)MsgId.C2SCHAT, PacketHandler.C2S_2SCHATHandler);
+        _onRecv.Add((ushort)MsgId.C2SChat, MakePacket<C2S_Chat>);
+        _handler.Add((ushort)MsgId.C2SChat, PacketHandler.C2S_ChatHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

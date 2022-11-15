@@ -15,9 +15,6 @@ namespace Server
     class ClientSession : PacketSession
     {
         public int SessionId { get; set; }
-        public float PosX { get; set; }
-        public float PosY { get; set; }
-        public float PosZ { get; set; }
         public override void OnConnected(EndPoint endPoint)
         {
             Console.WriteLine($"OnConnected : {endPoint}");

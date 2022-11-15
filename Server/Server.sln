@@ -9,6 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerCore", "ServerCore\Se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PacketGenerator", "PacketGenerator\PacketGenerator.csproj", "{CFCF63A8-19B3-47D0-9634-B6AEE16E86A2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{65431E59-DB8C-4CDF-A7C2-B425C0BC4A41}"
+	ProjectSection(SolutionItems) = preProject
+		..\Common\protoc-21.9-win64\bin\Protocol.proto = ..\Common\protoc-21.9-win64\bin\Protocol.proto
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

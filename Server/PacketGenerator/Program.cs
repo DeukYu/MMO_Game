@@ -4,11 +4,11 @@ namespace PacketGenerator
 {
     class Program
     {
-        static string clientRegister;
-        static string serverRegister;
+        static string? clientRegister;
+        static string? serverRegister;
         static void Main(string[] args)
         {
-            string file = "../../../Common/protoc-3.12.3-win64/bin/Protocol.proto";
+            string file = "../../../../../Common/protoc-21.9-win64/bin/Protocol.proto";
             if (args.Length >= 1)
                 file = args[0];
 
@@ -32,15 +32,17 @@ namespace PacketGenerator
                     continue;
 
                 string name = names[0];
-                if (name.StartsWith("S_"))
+                if (name.StartsWith("S2C_"))
                 {
                     string[] words = name.Split("_");
 
                     string msgName = "";
                     foreach (string word in words)
-                        msgName += FirstCharToUpper(word);
+                    {
+                        msgName += (true == word.Contains("S2C") ? word : FirstCharToUpper(word));
+                    }
 
-                    string packetName = $"S2C_{msgName.Substring(1)}";
+                    string packetName = $"S2C_{msgName.Substring(3)}";
                     clientRegister += string.Format(PacketFormat.managerRegisterFormat, msgName, packetName);
                 }
                 else if (name.StartsWith("C2S_"))
@@ -49,9 +51,11 @@ namespace PacketGenerator
 
                     string msgName = "";
                     foreach (string word in words)
-                        msgName += FirstCharToUpper(word);
+                    {
+                        msgName += (true == word.Contains("C2S") ? word : FirstCharToUpper(word));
+                    }
 
-                    string packetName = $"C2S_{msgName.Substring(1)}";
+                    string packetName = $"C2S_{msgName.Substring(3)}";
                     serverRegister += string.Format(PacketFormat.managerRegisterFormat, msgName, packetName);
                 }
             }
@@ -65,7 +69,7 @@ namespace PacketGenerator
         {
             if (string.IsNullOrEmpty(input))
                 return "";
-            return input[0].ToString().ToUpper() + input.Substring(1);
+            return input[0].ToString().ToUpper() + input.Substring(1).ToLower();
         }
     }
 }

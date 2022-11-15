@@ -4,34 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Google.Protobuf;
+using Google.Protobuf.Protocol;
+using Server;
 using ServerCore;
 
-namespace Server
+
+internal class PacketHandler
 {
-    internal class PacketHandler
+    public static void C2S_ChatHandler(PacketSession session, IMessage packet)
     {
-		public static void C2S_LeaveGameHandler(PacketSession session, IMessage packet)
-		{
-			//ClientSession? clientSession = session as ClientSession;
+        S2C_Chat? pkt = packet as S2C_Chat;
+        if (pkt == null) return;
+        ClientSession? serverSession = session as ClientSession;
+        if(serverSession == null) return;
 
-			//if (clientSession.Room == null)
-			//	return;
-
-			//GameRoom room = clientSession.Room;
-			//room.Push(() => room.Leave(clientSession));
-		}
-		public static void C2S_MoveHandler(PacketSession session, IMessage packet)
-		{
-			//C2S_Move pkt = packet as C2S_Move;
-			//ClientSession? clientSession = session as ClientSession;
-
-			//if (clientSession.Room == null)
-			//	return;
-
-			////Console.WriteLine($"{pkt.posX}, {pkt.posY}, {pkt.posZ}");
-
-			//GameRoom room = clientSession.Room;
-			//room.Push(() => room.Move(clientSession, pkt));
-		}
-	}
+        Console.WriteLine(pkt.Context);
+    }
 }

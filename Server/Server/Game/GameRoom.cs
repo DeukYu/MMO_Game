@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Google.Protobuf;
 using Google.Protobuf.Protocol;
 
 namespace Server.Game
@@ -73,6 +74,16 @@ namespace Server.Game
                         if (player != p)
                             p.Session.Send(despawnPkt);
                     }
+                }
+            }
+        }
+        public void Broadcast(IMessage packet)
+        {
+            lock(_lock)
+            {
+                foreach(Player p in _players)
+                {
+                    p.Session.Send(packet);
                 }
             }
         }

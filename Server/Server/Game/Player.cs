@@ -10,8 +10,8 @@ namespace Server.Game
     public class Player
     {
         object _lock = new object();
-        public PlayerInfo Info { get; set; } = new PlayerInfo();
-        public GameRoom Room { get; set; }
-        public ClientSession Session { get; set; }
+        public PlayerInfo Info { get; set; } = new PlayerInfo() { PosInfo = new PositionInfo() };
+        public GameRoom? Room { get; set; }
+        public ClientSession? Session { get; set; }
     }
 }

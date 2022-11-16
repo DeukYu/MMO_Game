@@ -1,12 +1,7 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using Google.Protobuf;
-using Google.Protobuf.Protocol;
+﻿using System.Net;
+using Server.Game;
 using Server.Session;
 using ServerCore;
-using static Google.Protobuf.Protocol.Person.Types;
 
 namespace Server
 {
@@ -15,6 +10,8 @@ namespace Server
         static Listener _listener = new Listener();
         static void Main(string[] args)
         {
+            RoomManager.Instance.Add();
+
             string host = Dns.GetHostName();
             IPHostEntry ipHost = Dns.GetHostEntry(host);
             IPAddress ipAddr = ipHost.AddressList[0];

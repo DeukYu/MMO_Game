@@ -11,13 +11,11 @@ using ServerCore;
 
 internal class PacketHandler
 {
-    public static void C2S_ChatHandler(PacketSession session, IMessage packet)
+    public static void C2S_MoveHandler(PacketSession session, IMessage packet)
     {
-        S2C_Chat? pkt = packet as S2C_Chat;
+        C2S_Move? pkt = packet as C2S_Move;
         if (pkt == null) return;
         ClientSession? serverSession = session as ClientSession;
         if(serverSession == null) return;
-
-        Console.WriteLine(pkt.Context);
     }
 }

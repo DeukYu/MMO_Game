@@ -19,10 +19,12 @@ class PacketManager
 	Dictionary<ushort, Action<PacketSession, ArraySegment<byte>, ushort>> _onRecv = new Dictionary<ushort, Action<PacketSession, ArraySegment<byte>, ushort>>();
 	Dictionary<ushort, Action<PacketSession, IMessage>> _handler = new Dictionary<ushort, Action<PacketSession, IMessage>>();
 		
+	public Action<PacketSession, IMessage, ushort> CustomHandler { get; set; }
+
 	public void Register()
 	{
-        _onRecv.Add((ushort)MsgId.C2SChat, MakePacket<C2S_Chat>);
-        _handler.Add((ushort)MsgId.C2SChat, PacketHandler.C2S_ChatHandler);
+        _onRecv.Add((ushort)MsgId.C2SMove, MakePacket<C2S_Move>);
+        _handler.Add((ushort)MsgId.C2SMove, PacketHandler.C2S_MoveHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
@@ -34,7 +36,7 @@ class PacketManager
 		ushort id = BitConverter.ToUInt16(buffer.Array, buffer.Offset + count);
 		count += 2;
 
-		Action<PacketSession, ArraySegment<byte>, ushort>? action = null;
+		Action<PacketSession, ArraySegment<byte>, ushort> action = null;
 		if (_onRecv.TryGetValue(id, out action))
 			action.Invoke(session, buffer, id);
 	}
@@ -43,14 +45,22 @@ class PacketManager
 	{
 		T pkt = new T();
 		pkt.MergeFrom(buffer.Array, buffer.Offset + 4, buffer.Count - 4);
-		Action<PacketSession, IMessage>? action = null;
-		if (_handler.TryGetValue(id, out action))
-			action.Invoke(session, pkt);
+		
+		if (CustomHandler != null)
+		{
+			CustomHandler.Invoke(session, pkt, id);
+		}
+		else
+		{
+			Action<PacketSession, IMessage> action = null;
+			if (_handler.TryGetValue(id, out action))
+				action.Invoke(session, pkt);
+		}
 	}
 
-	public Action<PacketSession, IMessage>? GetPacketHandler(ushort id)
+	public Action<PacketSession, IMessage> GetPacketHandler(ushort id)
 	{
-		Action<PacketSession, IMessage>? action = null;
+		Action<PacketSession, IMessage> action = null;
 		if (_handler.TryGetValue(id, out action))
 			return action;
 		return null;

@@ -4,22 +4,6 @@ using UnityEngine;
 
 public class Define : MonoBehaviour
 {
-    public enum CreatureState
-    {
-        Idle,
-        Moving,
-        Attack,
-        Skill,
-        Dead,
-    }
-    public enum MoveDir
-    {
-        None,
-        Up,
-        Down,
-        Left,
-        Right,
-    }
     public enum Scene
     {
         Unknown,

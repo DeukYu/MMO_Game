@@ -158,9 +158,16 @@ namespace ServerCore
             ArraySegment<byte> segment = _recvBuffer.WriteSegment;
             _recvArgs.SetBuffer(segment.Array, segment.Offset, segment.Count);
 
-            bool pending = _socket.ReceiveAsync(_recvArgs);
-            if (pending == false)
-                OnRecvCompleted(null, _recvArgs);
+            try
+            {
+                bool pending = _socket.ReceiveAsync(_recvArgs);
+                if (pending == false)
+                    OnRecvCompleted(null, _recvArgs);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"RegisterRecv Failed {e}");
+            }
         }
         void OnRecvCompleted(object? sender, SocketAsyncEventArgs args)
         {
@@ -190,7 +197,6 @@ namespace ServerCore
                             return;
                         }
 
-                        OnRecv(new ArraySegment<byte>(args.Buffer, args.Offset, args.BytesTransferred));
                         RegisterRecv();
                     }
                     catch (Exception e)

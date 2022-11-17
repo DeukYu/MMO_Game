@@ -34,7 +34,7 @@ namespace Server.Game
                     {
                         if (newPlayer != p)
                             spawnPkt.Players.Add(p.Info);
-                    }
+                    } 
                     newPlayer.Session.Send(spawnPkt);
                 }
                 // 타인

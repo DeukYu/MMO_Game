@@ -23,8 +23,8 @@ class PacketManager
 
 	public void Register()
 	{
-        _onRecv.Add((ushort)MsgId.C2SMove, MakePacket<C2S_Move>);
-        _handler.Add((ushort)MsgId.C2SMove, PacketHandler.C2S_MoveHandler);
+        _onRecv.Add((ushort)MsgId.C2SMove		, MakePacket<C2S_Move		>);
+        _handler.Add((ushort)MsgId.C2SMove		, PacketHandler.C2S_Move		Handler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

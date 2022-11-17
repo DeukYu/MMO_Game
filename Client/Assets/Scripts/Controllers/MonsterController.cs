@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Google.Protobuf.Protocol;
 using UnityEngine;
 using static Define;
 
@@ -25,10 +26,10 @@ public class MonsterController : CreatureController
     bool _rangedSkill = false;
     public override CreatureState State
     {
-        get { return _state; }
+        get { return PosInfo.State; }
         set
         {
-            if (_state == value)
+            if (State == value)
                 return;
 
             base.State = value;
@@ -107,23 +108,6 @@ public class MonsterController : CreatureController
         
         Dir = GetDirFromVec(moveCellDir);
 
-        //Vector3Int destPos = CellPos;
-
-        //switch (_dir)
-        //{
-        //    case MoveDir.Up:
-        //        destPos += Vector3Int.up;
-        //        break;
-        //    case MoveDir.Down:
-        //        destPos += Vector3Int.down;
-        //        break;
-        //    case MoveDir.Left:
-        //        destPos += Vector3Int.left;
-        //        break;
-        //    case MoveDir.Right:
-        //        destPos += Vector3Int.right;
-        //        break;
-        //}
         if (Managers.Map.CanGo(destPos) && Managers.Object.Find(nextPos) == null)
         {
             CellPos = nextPos;

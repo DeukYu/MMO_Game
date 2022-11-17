@@ -32,11 +32,11 @@ namespace Server.Game
                 return _rooms.Remove(roomId);
             }
         }
-        public GameRoom Find(int roomId)
+        public GameRoom? Find(int roomId)
         {
             lock (_lock)
             {
-                GameRoom room = null;
+                GameRoom? room = null;
                 if (_rooms.TryGetValue(roomId, out room))
                     return room;
                 return null;

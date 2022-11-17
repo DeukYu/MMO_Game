@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using Server;
+using Server.Game;
 using ServerCore;
 
 
@@ -20,20 +21,48 @@ internal class PacketHandler
 
         Console.WriteLine($"C2S_Move ({req.PosInfo.PosX}, {req.PosInfo.PosY})");
 
-        if (clientSession.MyPlayer == null)
-            return;
-        if (clientSession.MyPlayer.Room == null)
+        Player? player = clientSession.MyPlayer;
+        if (player == null)
             return;
 
+        GameRoom? room = player.Room;
+        if (room == null)
+            return;
+
+        room.HandleMove(player, req);
         // TODO : 검증
-        PlayerInfo info = clientSession.MyPlayer.Info;
-        info.PosInfo = req.PosInfo;
+    }
+    public static void C2S_AttackHandler(PacketSession session, IMessage packet)
+    {
+        C2S_Attack? req = packet as C2S_Attack;
+        if(req == null) return;
+        ClientSession clientSession = session as ClientSession;
+        if(clientSession == null) return;
 
-        // 다른 플레이에게 알려준다.
-        S2C_Move res = new S2C_Move();
-        res.PlayerId = clientSession.MyPlayer.Info.PlayerId;
-        res.PosInfo = req.PosInfo;
+        Player? player = clientSession.MyPlayer;
+        if (player == null)
+            return;
 
-        clientSession.MyPlayer.Room.Broadcast(res);
+        GameRoom? room = player.Room;
+        if (room == null)
+            return;
+
+    }
+    public static void C2S_SkillHandler(PacketSession session, IMessage packet)
+    {
+        C2S_Skill? req = packet as C2S_Skill;
+        if (req == null) return;
+        ClientSession clientSession = session as ClientSession;
+        if (clientSession == null) return;
+
+        Player? player = clientSession.MyPlayer;
+        if (player == null)
+            return;
+
+        GameRoom? room = player.Room;
+        if (room == null)
+            return;
+
+        room.HandleSkill(player, req);
     }
 }

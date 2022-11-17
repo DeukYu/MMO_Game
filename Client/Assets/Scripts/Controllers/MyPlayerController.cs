@@ -39,6 +39,10 @@ public class MyPlayerController : PlayerController
             //_coAttack = StartCoroutine("CoStartPunch");
             _coAttack = StartCoroutine("CoStartShootArrow");
         }
+        else if(Input.GetKey(KeyCode.LeftShift))
+        {
+            State = CreatureState.Skill;
+        }
     }
     void LateUpdate()
     {

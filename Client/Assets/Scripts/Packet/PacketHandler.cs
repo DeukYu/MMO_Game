@@ -47,4 +47,12 @@ class PacketHandler
 
         cc.PosInfo = movePacket.PosInfo;
     }
+    public static void S2C_AttackHandler(PacketSession session, IMessage packet)
+    {
+        S2C_Attack attackPacket = packet as S2C_Attack;
+    }
+    public static void S2C_SkillHandler(PacketSession session, IMessage packet)
+    {
+        S2C_Skill skillPacket = packet as S2C_Skill;
+    }
 }

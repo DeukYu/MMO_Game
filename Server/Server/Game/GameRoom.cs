@@ -34,7 +34,7 @@ namespace Server.Game
                     {
                         if (newPlayer != p)
                             spawnPkt.Players.Add(p.Info);
-                    } 
+                    }
                     newPlayer.Session.Send(spawnPkt);
                 }
                 // 타인
@@ -77,12 +77,54 @@ namespace Server.Game
                 }
             }
         }
-        public void Broadcast(IMessage packet)
+        public void HandleMove(Player player, C2S_Move movePacket)
         {
+            if (player == null)
+                return;
+
+            lock (_lock)
+            {
+                PlayerInfo? info = player.Info;
+                info.PosInfo = movePacket.PosInfo;
+
+                // 다른 플레이에게 알려준다.
+                S2C_Move res = new S2C_Move();
+                res.PlayerId = player.Info.PlayerId;
+                res.PosInfo = movePacket.PosInfo;
+
+                Broadcast(res);
+            }
+        }
+        public void HandleSkill(Player player, C2S_Skill skillPacket)
+        {
+            if (player == null)
+                return;
+
             lock(_lock)
             {
-                foreach(Player p in _players)
+                PlayerInfo? info = player.Info;
+                if (info.PosInfo.State != CreatureState.Idle)
+                    return;
+
+                // TODO : 스킬 사용 가능 여부 체크
+
+                info.PosInfo.State = CreatureState.Skill;
+                S2C_Skill res = new S2C_Skill() { Info = new SkillInfo() };
+                res.PlayerId = info.PlayerId;
+                res.Info.SkillId = 1;
+                Broadcast(res);
+
+                // TODO : 데미지 판정
+            }
+        }
+        public void Broadcast(IMessage packet)
+        {
+            lock (_lock)
+            {
+                foreach (Player p in _players)
                 {
+                    if (p.Session == null)
+                        continue;
                     p.Session.Send(packet);
                 }
             }

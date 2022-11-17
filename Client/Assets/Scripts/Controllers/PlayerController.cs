@@ -7,6 +7,7 @@ using static Define;
 public class PlayerController : CreatureController
 {
     protected Coroutine _coAttack;
+    protected Coroutine _coSkill;
     protected bool _rangeSkill = false;
     protected override void Init()
     {

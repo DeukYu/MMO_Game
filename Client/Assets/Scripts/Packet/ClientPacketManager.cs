@@ -33,6 +33,10 @@ class PacketManager
         _handler.Add((ushort)MsgId.S2CDespawn, PacketHandler.S2C_DespawnHandler);
         _onRecv.Add((ushort)MsgId.S2CMove, MakePacket<S2C_Move>);
         _handler.Add((ushort)MsgId.S2CMove, PacketHandler.S2C_MoveHandler);
+        _onRecv.Add((ushort)MsgId.S2CAttack, MakePacket<S2C_Attack>);
+        _handler.Add((ushort)MsgId.S2CAttack, PacketHandler.S2C_AttackHandler);
+        _onRecv.Add((ushort)MsgId.S2CSkill, MakePacket<S2C_Skill>);
+        _handler.Add((ushort)MsgId.S2CSkill, PacketHandler.S2C_SkillHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

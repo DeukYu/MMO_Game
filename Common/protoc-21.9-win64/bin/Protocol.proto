@@ -7,10 +7,39 @@ option csharp_namespace = "Google.Protobuf.Protocol";
 enum MsgId {
   S2C_ENTER_GAME = 0;
   S2C_LEAVE_GAME = 1;
-  S2C_SPAWN = 2;
-  S2C_DESPAWN = 3;
-  C2S_MOVE = 4;
-  S2C_MOVE = 5;
+  S2C_SPAWN		 = 2;
+  S2C_DESPAWN	 = 3;
+  C2S_MOVE		 = 4;
+  S2C_MOVE		 = 5;
+}
+
+enum CreatureState{
+	IDLE	= 0;
+	MOVING	= 1;
+	ATTACK	= 2;
+	SKILL	= 3;
+	DEAD	= 4;
+}
+
+enum MoveDir{
+	NONE	= 0;
+	UP		= 1;
+	DOWN	= 2;
+	LEFT	= 3;
+	RIGHT	= 4;
+}
+
+message PlayerInfo{
+	int32			playerId	= 1;
+	string			name		= 2;
+	PositionInfo	posInfo		= 3;
+}
+
+message PositionInfo{
+	CreatureState	state	= 1;
+	MoveDir			moveDir = 2;
+	int32			posX	= 3;
+	int32			posY	= 4;
 }
 
 message S2C_EnterGame {
@@ -18,13 +47,6 @@ message S2C_EnterGame {
 }
 
 message S2C_LeaveGame{
-}
-
-message PlayerInfo{
-	int32 playerId = 1;
-	string name = 2;
-	int32 PosX = 3;
-	int32 PosY = 4;
 }
 
 message S2C_Spawn{
@@ -36,12 +58,10 @@ message S2C_Despawn{
 }
 
 message C2S_Move{
-	int32 posX = 1;
-	int32 posY = 2;
+	PositionInfo	posInfo = 1;
 }
 
 message S2C_Move{
-	int32 playerId = 1;
-	int32 posX = 2;
-	int32 posY = 3;
+	int32		 playerId	= 1;
+	PositionInfo posInfo	= 2;
 }

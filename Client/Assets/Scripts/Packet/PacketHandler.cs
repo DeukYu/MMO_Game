@@ -11,7 +11,6 @@ class PacketHandler
     {
         S2C_EnterGame enterGamePacket = packet as S2C_EnterGame;
         Managers.Object.Add(enterGamePacket.Player, true);
-        Debug.Log($"S2C_EnterGameHandler {enterGamePacket.Player}");
     }
     public static void S2C_LeaveGameHandler(PacketSession session, IMessage packet)
     {
@@ -38,8 +37,14 @@ class PacketHandler
     public static void S2C_MoveHandler(PacketSession session, IMessage packet)
     {
         S2C_Move movePacket = packet as S2C_Move;
-        ServerSession serverSession = session as ServerSession;
 
-        Debug.Log("S2C_MoveHandler");
+        GameObject go = Managers.Object.FindById(movePacket.PlayerId);
+        if (go == null)
+            return;
+        CreatureController cc = go.GetComponent<CreatureController>();
+        if (cc == null)
+            return;
+
+        cc.PosInfo = movePacket.PosInfo;
     }
 }

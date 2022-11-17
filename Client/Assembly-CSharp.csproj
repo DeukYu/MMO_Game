@@ -76,13 +76,13 @@
     <Compile Include="Assets\Scripts\ServerCore\RecvBuffer.cs" />
     <Compile Include="Assets\Scripts\ServerCore\Connector.cs" />
     <Compile Include="Assets\Scripts\Utils\PriorityQueue.cs" />
+    <Compile Include="Assets\Scripts\Controllers\MyPlayerController.cs" />
     <Compile Include="Assets\Scripts\Scenes\BaseScene.cs" />
     <Compile Include="Assets\Scripts\Packet\PacketHandler.cs" />
     <Compile Include="Assets\Scripts\Scenes\GameScene.cs" />
     <Compile Include="Assets\Scripts\Packet\PacketQueue.cs" />
     <Compile Include="Assets\Scripts\Managers\Managers.cs" />
     <Compile Include="Assets\Scripts\Utils\Define.cs" />
-    <Compile Include="Assets\Scripts\Controllers\MyPlayerController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Libs\System.Runtime.CompilerServices.Unsafe.dll" />

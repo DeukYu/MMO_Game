@@ -9,16 +9,16 @@ public class ObjectManager
     public MyPlayerController MyPlayer { get; set; }
     Dictionary<int, GameObject> _objects = new Dictionary<int, GameObject>();
 
-    public void Add(PlayerInfo info, bool myPlayer = false)
+    public void Add(ObjectInfo info, bool myPlayer = false)
     {
         if (myPlayer)
         {
             GameObject go = Managers.Resource.Instantiate("Creature/MyPlayer");
             go.name = info.Name;
-            _objects.Add(info.PlayerId, go);
+            _objects.Add(info.ObjectId, go);
 
             MyPlayer = go.GetComponent<MyPlayerController>();
-            MyPlayer.Id = info.PlayerId;
+            MyPlayer.Id = info.ObjectId;
             MyPlayer.PosInfo = info.PosInfo;
             MyPlayer.SyncPos();
         }
@@ -26,10 +26,10 @@ public class ObjectManager
         {
             GameObject go = Managers.Resource.Instantiate("Creature/Player");
             go.name = info.Name;
-            _objects.Add(info.PlayerId, go);
+            _objects.Add(info.ObjectId, go);
 
             PlayerController pc = go.GetComponent<PlayerController>();
-            pc.Id = info.PlayerId;
+            pc.Id = info.ObjectId;
             pc.PosInfo = info.PosInfo;
             pc.SyncPos();
         }

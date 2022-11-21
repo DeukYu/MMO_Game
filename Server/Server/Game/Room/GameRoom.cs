@@ -13,44 +13,64 @@ namespace Server.Game
         object _lock = new object();
         public int RoomId { get; set; }
         Dictionary<int, Player> _players = new Dictionary<int, Player>();
+        Dictionary<int, Monster> _monsters = new Dictionary<int, Monster>();
+        Dictionary<int, Projectile> _projectile = new Dictionary<int, Projectile>();
 
         Map _map = new Map();
         public void Init(int mapId)
         {
             _map.LoadMap(mapId);
         }
-        
-        public void EnterGame(Player newPlayer)
+
+        public void EnterGame(GameObject gameObject)
         {
-            if (newPlayer == null)
+            if (gameObject == null)
                 return;
+
+            GameObjectType type = ObjectManager.GetObjectTypeById(gameObject.Id);
 
             lock (_lock)
             {
-                _players.Add(newPlayer.Info.PlayerId, newPlayer);
-                newPlayer.Room = this;
-
-                // 본인
+                if(type == GameObjectType.Player)
                 {
-                    S2C_EnterGame enterPkt = new S2C_EnterGame();
-                    enterPkt.Player = newPlayer.Info;
-                    newPlayer.Session.Send(enterPkt);
+                    Player? player = gameObject as Player;
+                    _players.Add(gameObject.Id, player);
+                    player.Room = this;
 
-                    S2C_Spawn spawnPkt = new S2C_Spawn();
-                    foreach (Player p in _players.Values)
+                    // 본인
                     {
-                        if (newPlayer != p)
-                            spawnPkt.Players.Add(p.Info);
+                        S2C_EnterGame enterPkt = new S2C_EnterGame();
+                        enterPkt.Player = player.Info;
+                        player.Session.Send(enterPkt);
+
+                        S2C_Spawn spawnPkt = new S2C_Spawn();
+                        foreach (Player p in _players.Values)
+                        {
+                            if (player != p)
+                                spawnPkt.Objects.Add(p.Info);
+                        }
+                        player.Session.Send(spawnPkt);
                     }
-                    newPlayer.Session.Send(spawnPkt);
+                }
+                else if(type == GameObjectType.Monster)
+                {
+                    Monster? monster = gameObject as Monster;
+                    _monsters.Add(gameObject.Id, monster);
+                    monster.Room = this;
+                }
+                else if(type == GameObjectType.Projectile)
+                {
+                    Projectile? projectile = gameObject as Projectile;
+                    _projectile.Add(gameObject.Id, projectile);
+                    projectile.Room = this;
                 }
                 // 타인
                 {
                     S2C_Spawn spawnPkt = new S2C_Spawn();
-                    spawnPkt.Players.Add(newPlayer.Info);
+                    spawnPkt.Objects.Add(gameObject.Info);
                     foreach (Player p in _players.Values)
                     {
-                        if (newPlayer != p)
+                        if (p.Id != gameObject.Id)
                             p.Session.Send(spawnPkt);
                     }
                 }
@@ -74,7 +94,7 @@ namespace Server.Game
                 // 타인
                 {
                     S2C_Despawn despawnPkt = new S2C_Despawn();
-                    despawnPkt.PlayerIds.Add(player.Info.PlayerId);
+                    despawnPkt.PlayerIds.Add(player.Info.ObjectId);
                     foreach (Player p in _players.Values)
                     {
                         if (player != p)
@@ -91,10 +111,10 @@ namespace Server.Game
             lock (_lock)
             {
                 PositionInfo? movePosInfo = movePacket.PosInfo;
-                PlayerInfo? info = player.Info;
+                ObjectInfo? info = player.Info;
 
                 // 다른 좌표로 이동할 경우, 갈 수 있는지 체크
-                if(movePosInfo.PosX != info.PosInfo.PosX || movePosInfo.PosY != info.PosInfo.PosY)
+                if (movePosInfo.PosX != info.PosInfo.PosX || movePosInfo.PosY != info.PosInfo.PosY)
                 {
                     if (_map.CanGo(new Vector2Int(movePosInfo.PosX, movePosInfo.PosY)) == false)
                         return;
@@ -106,7 +126,7 @@ namespace Server.Game
 
                 // 다른 플레이에게 알려준다.
                 S2C_Move res = new S2C_Move();
-                res.PlayerId = player.Info.PlayerId;
+                res.PlayerId = player.Info.ObjectId;
                 res.PosInfo = movePacket.PosInfo;
 
                 Broadcast(res);
@@ -119,21 +139,19 @@ namespace Server.Game
 
             lock (_lock)
             {
-                PlayerInfo? info = player.Info;
+                ObjectInfo? info = player.Info;
                 if (info.PosInfo.State != CreatureState.Idle)
                     return;
 
-                // TODO : 공격 사용 가능 여부 체크
-
                 info.PosInfo.State = CreatureState.Attack;
                 S2C_Attack res = new S2C_Attack() { };
-                res.PlayerId = info.PlayerId;
+                res.PlayerId = info.ObjectId;
                 Broadcast(res);
 
                 // 데미지 판정
                 Vector2Int attackPos = player.GetFrontCellPos(info.PosInfo.MoveDir);
                 Player target = _map.Find(attackPos);
-                if(target != null)
+                if (target != null)
                 {
                     Console.WriteLine("Hit Player !");
                 }
@@ -146,18 +164,30 @@ namespace Server.Game
 
             lock (_lock)
             {
-                PlayerInfo? info = player.Info;
+                ObjectInfo? info = player.Info;
                 if (info.PosInfo.State != CreatureState.Idle)
                     return;
 
-                // TODO : 스킬 사용 가능 여부 체크
-
                 info.PosInfo.State = CreatureState.Skill;
                 S2C_Skill res = new S2C_Skill() { Info = new SkillInfo() };
-                res.PlayerId = info.PlayerId;
-                res.Info.SkillId = 1;
+                res.PlayerId = info.ObjectId;
+                res.Info.SkillId = skillPacket.Info.SkillId;
                 Broadcast(res);
 
+                // TODO : 스킬 사용 가능 여부 체크
+                if (skillPacket.Info.SkillId == 1)
+                {
+                    Arrow arrow = ObjectManager.Instance.Add<Arrow>();
+                    if (arrow == null)
+                        return;
+
+                    arrow.Owner = player;
+                    arrow.PosInfo.State = CreatureState.Moving;
+                    arrow.PosInfo.MoveDir = player.PosInfo.MoveDir;
+                    arrow.PosInfo.PosX = player.PosInfo.PosX;
+                    arrow.PosInfo.PosY = player.PosInfo.PosY;
+                    EnterGame(arrow);
+                }
                 // TODO : 데미지 판정
             }
         }

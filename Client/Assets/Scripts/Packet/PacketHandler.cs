@@ -21,7 +21,7 @@ class PacketHandler
     {
         S2C_Spawn spawnPacket = packet as S2C_Spawn;
 
-        foreach (PlayerInfo player in spawnPacket.Players)
+        foreach (ObjectInfo player in spawnPacket.Objects)
         {
             Managers.Object.Add(player, myPlayer: false);
         }

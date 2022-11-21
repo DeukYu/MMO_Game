@@ -32,8 +32,16 @@ enum MoveDir{
 	RIGHT	= 3;
 }
 
-message PlayerInfo{
-	int32	playerId = 1;
+enum GameObjectType{
+	NONE = 0;
+	PLAYER = 1;
+	MONSTER = 2;
+	NPC = 3;
+	PROJECTILE = 4;
+}
+
+message ObjectInfo{
+	int32	objectId = 1;
 	string	name = 2;
 	PositionInfo posInfo = 3;
 }
@@ -50,14 +58,14 @@ message SkillInfo{
 }
 
 message S2C_EnterGame {
-	PlayerInfo	player = 1;
+	ObjectInfo	player = 1;
 }
 
 message S2C_LeaveGame{
 }
 
 message S2C_Spawn{
-	repeated PlayerInfo players = 1;
+	repeated ObjectInfo objects = 1;
 }
 
 message S2C_Despawn{

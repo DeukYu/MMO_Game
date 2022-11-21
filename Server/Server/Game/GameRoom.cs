@@ -12,7 +12,14 @@ namespace Server.Game
     {
         object _lock = new object();
         public int RoomId { get; set; }
-        List<Player> _players = new List<Player>();
+        Dictionary<int, Player> _players = new Dictionary<int, Player>();
+
+        Map _map = new Map();
+        public void Init(int mapId)
+        {
+            _map.LoadMap(mapId);
+        }
+        
         public void EnterGame(Player newPlayer)
         {
             if (newPlayer == null)
@@ -20,7 +27,7 @@ namespace Server.Game
 
             lock (_lock)
             {
-                _players.Add(newPlayer);
+                _players.Add(newPlayer.Info.PlayerId, newPlayer);
                 newPlayer.Room = this;
 
                 // 본인
@@ -30,7 +37,7 @@ namespace Server.Game
                     newPlayer.Session.Send(enterPkt);
 
                     S2C_Spawn spawnPkt = new S2C_Spawn();
-                    foreach (Player p in _players)
+                    foreach (Player p in _players.Values)
                     {
                         if (newPlayer != p)
                             spawnPkt.Players.Add(p.Info);
@@ -41,7 +48,7 @@ namespace Server.Game
                 {
                     S2C_Spawn spawnPkt = new S2C_Spawn();
                     spawnPkt.Players.Add(newPlayer.Info);
-                    foreach (Player p in _players)
+                    foreach (Player p in _players.Values)
                     {
                         if (newPlayer != p)
                             p.Session.Send(spawnPkt);
@@ -53,11 +60,10 @@ namespace Server.Game
         {
             lock (_lock)
             {
-                Player? player = _players.Find(match: p => p.Info.PlayerId == playerId);
-                if (player == null)
+                Player? player = null;
+                if (_players.Remove(playerId, out player) == false)
                     return;
 
-                _players.Remove(player);
                 player.Room = null;
 
                 // 본인
@@ -69,7 +75,7 @@ namespace Server.Game
                 {
                     S2C_Despawn despawnPkt = new S2C_Despawn();
                     despawnPkt.PlayerIds.Add(player.Info.PlayerId);
-                    foreach (Player p in _players)
+                    foreach (Player p in _players.Values)
                     {
                         if (player != p)
                             p.Session.Send(despawnPkt);
@@ -84,8 +90,19 @@ namespace Server.Game
 
             lock (_lock)
             {
+                PositionInfo? movePosInfo = movePacket.PosInfo;
                 PlayerInfo? info = player.Info;
-                info.PosInfo = movePacket.PosInfo;
+
+                // 다른 좌표로 이동할 경우, 갈 수 있는지 체크
+                if(movePosInfo.PosX != info.PosInfo.PosX || movePosInfo.PosY != info.PosInfo.PosY)
+                {
+                    if (_map.CanGo(new Vector2Int(movePosInfo.PosX, movePosInfo.PosY)) == false)
+                        return;
+                }
+
+                info.PosInfo.State = movePosInfo.State;
+                info.PosInfo.MoveDir = movePosInfo.MoveDir;
+                _map.ApplyMove(player, new Vector2Int(movePosInfo.PosX, movePosInfo.PosY));
 
                 // 다른 플레이에게 알려준다.
                 S2C_Move res = new S2C_Move();
@@ -100,7 +117,7 @@ namespace Server.Game
             if (player == null)
                 return;
 
-            lock(_lock)
+            lock (_lock)
             {
                 PlayerInfo? info = player.Info;
                 if (info.PosInfo.State != CreatureState.Idle)
@@ -114,6 +131,12 @@ namespace Server.Game
                 Broadcast(res);
 
                 // 데미지 판정
+                Vector2Int attackPos = player.GetFrontCellPos(info.PosInfo.MoveDir);
+                Player target = _map.Find(attackPos);
+                if(target != null)
+                {
+                    Console.WriteLine("Hit Player !");
+                }
             }
         }
         public void HandleSkill(Player player, C2S_Skill skillPacket)
@@ -121,7 +144,7 @@ namespace Server.Game
             if (player == null)
                 return;
 
-            lock(_lock)
+            lock (_lock)
             {
                 PlayerInfo? info = player.Info;
                 if (info.PosInfo.State != CreatureState.Idle)
@@ -142,7 +165,7 @@ namespace Server.Game
         {
             lock (_lock)
             {
-                foreach (Player p in _players)
+                foreach (Player p in _players.Values)
                 {
                     if (p.Session == null)
                         continue;

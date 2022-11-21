@@ -50,9 +50,29 @@ class PacketHandler
     public static void S2C_AttackHandler(PacketSession session, IMessage packet)
     {
         S2C_Attack attackPacket = packet as S2C_Attack;
+
+        GameObject go = Managers.Object.FindById(attackPacket.PlayerId);
+        if (go == null)
+            return;
+
+        PlayerController pc = go.GetComponent<PlayerController>();
+        if (pc == null)
+            return;
+
+        pc.UseAttack();
     }
     public static void S2C_SkillHandler(PacketSession session, IMessage packet)
     {
         S2C_Skill skillPacket = packet as S2C_Skill;
+
+        GameObject go = Managers.Object.FindById(skillPacket.PlayerId);
+        if (go == null)
+            return;
+
+        PlayerController pc = go.GetComponent<PlayerController>();
+        if (pc == null)
+            return;
+
+        pc.UseSkill(skillPacket.Info.SkillId);
     }
 }

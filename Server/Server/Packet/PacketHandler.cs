@@ -47,6 +47,7 @@ internal class PacketHandler
         if (room == null)
             return;
 
+        room.HandleAttack(player, req);
     }
     public static void C2S_SkillHandler(PacketSession session, IMessage packet)
     {

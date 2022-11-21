@@ -33,16 +33,33 @@ public class MyPlayerController : PlayerController
             return;
         }
         // 스킬 사앹로 갈지 확인
-        if (Input.GetKey(KeyCode.Space))
+        if (_coAttackCooltime == null && Input.GetKey(KeyCode.Space))
         {
-            State = CreatureState.Attack;
-            //_coAttack = StartCoroutine("CoStartPunch");
-            _coAttack = StartCoroutine("CoStartShootArrow");
+            Debug.Log("Attack");
+
+            C2S_Attack attack = new C2S_Attack();
+            Managers.Network.Send(attack);
+
+            _coAttackCooltime = StartCoroutine("CoInputCooltime", 0.2f);
+
         }
-        else if(Input.GetKey(KeyCode.LeftShift))
+        else if(_coSkillCooltime == null && Input.GetKey(KeyCode.LeftShift))
         {
-            State = CreatureState.Skill;
+            Debug.Log("Skill");
+
+            C2S_Skill skill = new C2S_Skill() { Info = new SkillInfo() };
+            skill.Info.SkillId = 1;
+            Managers.Network.Send(skill);
+
+            _coSkillCooltime = StartCoroutine("CoInputCooltime", 0.2f);
         }
+    }
+    Coroutine _coAttackCooltime;
+    Coroutine _coSkillCooltime;
+    IEnumerator CoInputCooltime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _coAttackCooltime = null;
     }
     void LateUpdate()
     {
@@ -107,7 +124,7 @@ public class MyPlayerController : PlayerController
 
         CheckUpdatedFlag();
     }
-    void CheckUpdatedFlag()
+    protected override void CheckUpdatedFlag()
     {
         if (_updated)
         {

@@ -95,6 +95,27 @@ namespace Server.Game
                 Broadcast(res);
             }
         }
+        public void HandleAttack(Player player, C2S_Attack attackPacket)
+        {
+            if (player == null)
+                return;
+
+            lock(_lock)
+            {
+                PlayerInfo? info = player.Info;
+                if (info.PosInfo.State != CreatureState.Idle)
+                    return;
+
+                // TODO : 공격 사용 가능 여부 체크
+
+                info.PosInfo.State = CreatureState.Attack;
+                S2C_Attack res = new S2C_Attack() { };
+                res.PlayerId = info.PlayerId;
+                Broadcast(res);
+
+                // 데미지 판정
+            }
+        }
         public void HandleSkill(Player player, C2S_Skill skillPacket)
         {
             if (player == null)

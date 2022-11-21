@@ -99,21 +99,30 @@ public class PlayerController : CreatureController
             return;
         }
     }
+    public void UseAttack()
+    {
+        _coAttack = StartCoroutine("CoStartPunch");
+    }
+    public void UseSkill(int skillId)
+    {
+        if(skillId == 1)
+        {
+            _coSkill = StartCoroutine("CoStartShootArrow");
+        }
+    }
+    protected virtual void CheckUpdatedFlag()
+    {
+
+    }
     IEnumerator CoStartPunch()
     {
-        // 피격 판정
-        GameObject go = Managers.Object.Find(GetFrontCellPos());
-        if(go != null)
-        {
-            CreatureController cc = go.GetComponent<CreatureController>();
-            if (cc != null)
-                cc.OnDamaged();
-        }
         // 대기 시간
         _rangeSkill = false;
+        State = CreatureState.Attack;
         yield return new WaitForSeconds(0.3f);
-        State = CreatureState.Moving;
+        State = CreatureState.Idle;
         _coAttack = null;
+        CheckUpdatedFlag();
     }
     IEnumerator CoStartShootArrow()
     {

@@ -79,7 +79,7 @@ message C2S_Attack{
 }
 
 message S2C_Attack{
-
+	int32 playerId = 1;
 }
 
 message C2S_Skill{

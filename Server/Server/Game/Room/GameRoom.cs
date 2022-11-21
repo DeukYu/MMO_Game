@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Google.Protobuf;
 using Google.Protobuf.Protocol;
@@ -16,12 +18,21 @@ namespace Server.Game
         Dictionary<int, Monster> _monsters = new Dictionary<int, Monster>();
         Dictionary<int, Projectile> _projectile = new Dictionary<int, Projectile>();
 
-        Map _map = new Map();
+        public Map Map { get; private set; } = new Map();
         public void Init(int mapId)
         {
-            _map.LoadMap(mapId);
+            Map.LoadMap(mapId);
         }
-
+        public void Update()
+        {
+            lock (_lock)
+            {
+                foreach(Projectile projectile in _projectile.Values)
+                {
+                    projectile.Update();
+                }
+            }
+        }
         public void EnterGame(GameObject gameObject)
         {
             if (gameObject == null)
@@ -76,28 +87,52 @@ namespace Server.Game
                 }
             }
         }
-        public void LeaveGame(int playerId)
+        public void LeaveGame(int objectId)
         {
+            GameObjectType type = ObjectManager.GetObjectTypeById(objectId);
+
             lock (_lock)
             {
-                Player? player = null;
-                if (_players.Remove(playerId, out player) == false)
-                    return;
-
-                player.Room = null;
-
-                // 본인
+                if (type == GameObjectType.Player)
                 {
-                    S2C_LeaveGame leavePkt = new S2C_LeaveGame();
-                    player.Session.Send(leavePkt);
+                    Player? player = null;
+                    if (_players.Remove(objectId, out player) == false)
+                        return;
+
+                    player.Room = null;
+                    Map.ApplyLeave(player);
+
+                    // 본인
+                    {
+                        S2C_LeaveGame leavePkt = new S2C_LeaveGame();
+                        player.Session.Send(leavePkt);
+                    }
                 }
+                else if(type == GameObjectType.Monster)
+                {
+                    Monster? monster = null;
+                    if (_monsters.Remove(objectId, out monster) == false)
+                        return;
+
+                    monster.Room = null;
+                    Map.ApplyLeave(monster);
+                }
+                else if(type == GameObjectType.Projectile)
+                {
+                    Projectile? projectile = null;
+                    if (_projectile.Remove(objectId, out projectile) == false)
+                        return;
+
+                    projectile.Room = null;
+                }
+                
                 // 타인
                 {
                     S2C_Despawn despawnPkt = new S2C_Despawn();
-                    despawnPkt.PlayerIds.Add(player.Info.ObjectId);
+                    despawnPkt.ObjectIds.Add(objectId);
                     foreach (Player p in _players.Values)
                     {
-                        if (player != p)
+                        if (p.Id != objectId)
                             p.Session.Send(despawnPkt);
                     }
                 }
@@ -116,17 +151,17 @@ namespace Server.Game
                 // 다른 좌표로 이동할 경우, 갈 수 있는지 체크
                 if (movePosInfo.PosX != info.PosInfo.PosX || movePosInfo.PosY != info.PosInfo.PosY)
                 {
-                    if (_map.CanGo(new Vector2Int(movePosInfo.PosX, movePosInfo.PosY)) == false)
+                    if (Map.CanGo(new Vector2Int(movePosInfo.PosX, movePosInfo.PosY)) == false)
                         return;
                 }
 
                 info.PosInfo.State = movePosInfo.State;
                 info.PosInfo.MoveDir = movePosInfo.MoveDir;
-                _map.ApplyMove(player, new Vector2Int(movePosInfo.PosX, movePosInfo.PosY));
+                Map.ApplyMove(player, new Vector2Int(movePosInfo.PosX, movePosInfo.PosY));
 
                 // 다른 플레이에게 알려준다.
                 S2C_Move res = new S2C_Move();
-                res.PlayerId = player.Info.ObjectId;
+                res.ObjectId = player.Info.ObjectId;
                 res.PosInfo = movePacket.PosInfo;
 
                 Broadcast(res);
@@ -145,15 +180,15 @@ namespace Server.Game
 
                 info.PosInfo.State = CreatureState.Attack;
                 S2C_Attack res = new S2C_Attack() { };
-                res.PlayerId = info.ObjectId;
+                res.ObjectId = info.ObjectId;
                 Broadcast(res);
 
                 // 데미지 판정
                 Vector2Int attackPos = player.GetFrontCellPos(info.PosInfo.MoveDir);
-                Player target = _map.Find(attackPos);
+                GameObject target = Map.Find(attackPos);
                 if (target != null)
                 {
-                    Console.WriteLine("Hit Player !");
+                    Console.WriteLine("Hit GameObject !");
                 }
             }
         }
@@ -170,7 +205,7 @@ namespace Server.Game
 
                 info.PosInfo.State = CreatureState.Skill;
                 S2C_Skill res = new S2C_Skill() { Info = new SkillInfo() };
-                res.PlayerId = info.ObjectId;
+                res.ObjectId = info.ObjectId;
                 res.Info.SkillId = skillPacket.Info.SkillId;
                 Broadcast(res);
 

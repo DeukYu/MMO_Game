@@ -29,7 +29,7 @@ class PacketHandler
     public static void S2C_DespawnHandler(PacketSession session, IMessage packet)
     {
         S2C_Despawn despawnPacket = packet as S2C_Despawn;
-        foreach (int playerId in despawnPacket.PlayerIds)
+        foreach (int playerId in despawnPacket.ObjectIds)
         {
             Managers.Object.Remove(playerId);
         }
@@ -38,7 +38,7 @@ class PacketHandler
     {
         S2C_Move movePacket = packet as S2C_Move;
 
-        GameObject go = Managers.Object.FindById(movePacket.PlayerId);
+        GameObject go = Managers.Object.FindById(movePacket.ObjectId);
         if (go == null)
             return;
         CreatureController cc = go.GetComponent<CreatureController>();
@@ -51,7 +51,7 @@ class PacketHandler
     {
         S2C_Attack attackPacket = packet as S2C_Attack;
 
-        GameObject go = Managers.Object.FindById(attackPacket.PlayerId);
+        GameObject go = Managers.Object.FindById(attackPacket.ObjectId);
         if (go == null)
             return;
 
@@ -65,7 +65,7 @@ class PacketHandler
     {
         S2C_Skill skillPacket = packet as S2C_Skill;
 
-        GameObject go = Managers.Object.FindById(skillPacket.PlayerId);
+        GameObject go = Managers.Object.FindById(skillPacket.ObjectId);
         if (go == null)
             return;
 

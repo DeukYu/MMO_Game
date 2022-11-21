@@ -61,6 +61,7 @@ public class MyPlayerController : PlayerController
     {
         yield return new WaitForSeconds(time);
         _coAttackCooltime = null;
+        _coSkillCooltime = null;
     }
     void LateUpdate()
     {

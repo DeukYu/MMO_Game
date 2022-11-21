@@ -19,9 +19,13 @@ namespace Server
 
             _listener.Init(endPoint, () => { return SessionManager.Instance.Generate(); });
             Console.WriteLine("Listening...");
+
+            // TODO
             while (true)
             {
-                ;
+                RoomManager.Instance.Find(1).Update();
+
+                Thread.Sleep(100);
             }
         }
     }

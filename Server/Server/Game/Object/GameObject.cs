@@ -44,16 +44,16 @@ namespace Server.Game
             switch (dir)
             {
                 case MoveDir.Up:
-                    cellPos = Vector2Int.up;
+                    cellPos += Vector2Int.up;
                     break;
                 case MoveDir.Down:
-                    cellPos = Vector2Int.down;
+                    cellPos += Vector2Int.down;
                     break;
                 case MoveDir.Left:
-                    cellPos = Vector2Int.left;
+                    cellPos += Vector2Int.left;
                     break;
                 case MoveDir.Right:
-                    cellPos = Vector2Int.right;
+                    cellPos += Vector2Int.right;
                     break;
             }
             return cellPos;

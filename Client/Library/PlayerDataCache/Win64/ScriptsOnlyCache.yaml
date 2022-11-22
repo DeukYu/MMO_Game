@@ -3,6 +3,7 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - ArrowController
     - GameScene
+    - HpBar
     - MonsterController
     - MyPlayerController
     - PlayerController
@@ -66,17 +67,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1524}
     - Class: 114
-      Script: {instanceID: 1958}
+      Script: {instanceID: 1962}
     - Class: 114
-      Script: {instanceID: 2644}
+      Script: {instanceID: 2648}
     - Class: 114
-      Script: {instanceID: 2656}
+      Script: {instanceID: 2660}
     - Class: 114
-      Script: {instanceID: 5714}
+      Script: {instanceID: 5718}
     - Class: 114
-      Script: {instanceID: 6742}
+      Script: {instanceID: 6746}
     - Class: 114
-      Script: {instanceID: 7106}
+      Script: {instanceID: 7112}
+    - Class: 114
+      Script: {instanceID: 23776}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -162,7 +165,7 @@ ScriptsOnlyBuild:
     className: UnityOnMouseExitMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 3cf156985df62fac63708d6bed3583bf
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ArrowController
@@ -222,7 +225,7 @@ ScriptsOnlyBuild:
     className: EventSystem
   - hash:
       serializedVersion: 2
-      Hash: 3cf156985df62fac63708d6bed3583bf
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -366,7 +369,7 @@ ScriptsOnlyBuild:
     className: ContentSizeFitter
   - hash:
       serializedVersion: 2
-      Hash: 3cf156985df62fac63708d6bed3583bf
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CreatureController
@@ -648,7 +651,7 @@ ScriptsOnlyBuild:
     className: Text
   - hash:
       serializedVersion: 2
-      Hash: b20997fea586696ac46f08306e00cf54
+      Hash: 0478c27da9a47ac5b098dee2881362f2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MonsterController
@@ -720,7 +723,7 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: 3cf156985df62fac63708d6bed3583bf
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MyPlayerController
@@ -928,7 +931,13 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 9b28d530eb7b341ecd3d2968ce697630
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HpBar
   platform: 19
   scenePathNames:
   - Assets/Scenes/GameScene.unity
-  playerPath: D:/github/MMO_Game/Client/Builds/Win64/Client2/Client2.exe
+  playerPath: C:/Users/LeeDeukYu/Desktop/github/MMO_Game/Client/Builds/Win64/Client2/Client2.exe

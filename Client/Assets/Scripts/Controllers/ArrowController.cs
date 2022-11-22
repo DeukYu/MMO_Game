@@ -24,7 +24,7 @@ public class ArrowController : CreatureController
                 break;
         }
         State = CreatureState.Moving;
-        _speed = 15.0f;
+
         // TODO
         base.Init();
     }

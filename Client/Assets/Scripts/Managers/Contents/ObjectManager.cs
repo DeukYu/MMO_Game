@@ -17,7 +17,7 @@ public class ObjectManager
     public void Add(ObjectInfo info, bool myPlayer = false)
     {
         GameObjectType objectType = GetObjectTypeById(info.ObjectId);
-        if(objectType == GameObjectType.Player)
+        if (objectType == GameObjectType.Player)
         {
             if (myPlayer)
             {
@@ -28,6 +28,7 @@ public class ObjectManager
                 MyPlayer = go.GetComponent<MyPlayerController>();
                 MyPlayer.Id = info.ObjectId;
                 MyPlayer.PosInfo = info.PosInfo;
+                MyPlayer.Stat = info.StatInfo;
                 MyPlayer.SyncPos();
             }
             else
@@ -39,10 +40,11 @@ public class ObjectManager
                 PlayerController pc = go.GetComponent<PlayerController>();
                 pc.Id = info.ObjectId;
                 pc.PosInfo = info.PosInfo;
+                pc.Stat = info.StatInfo;
                 pc.SyncPos();
             }
         }
-        else if(objectType == GameObjectType.Monster)
+        else if (objectType == GameObjectType.Monster)
         {
             GameObject go = Managers.Resource.Instantiate("Creature/Monster");
             if (go == null)
@@ -51,7 +53,7 @@ public class ObjectManager
             go.name = "Monster";
             _objects.Add(info.ObjectId, go);
         }
-        else if(objectType == GameObjectType.Projectile)
+        else if (objectType == GameObjectType.Projectile)
         {
             GameObject go = Managers.Resource.Instantiate("Creature/Arrow");
             if (go == null)
@@ -62,8 +64,8 @@ public class ObjectManager
             ArrowController ac = go.GetComponent<ArrowController>();
             if (ac == null)
                 return;
-            ac.Dir = info.PosInfo.MoveDir;
-            ac.CellPos = new Vector3Int(info.PosInfo.PosX, info.PosInfo.PosY, 0);
+            ac.PosInfo = info.PosInfo;
+            ac.Stat = info.StatInfo;
             ac.SyncPos();
         }
     }

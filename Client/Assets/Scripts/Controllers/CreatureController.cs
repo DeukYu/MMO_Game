@@ -7,9 +7,24 @@ using static Define;
 public class CreatureController : MonoBehaviour
 {
     public int Id { get; set; }
-    [SerializeField]
-    public float _speed = 5.0f;
-
+    StatInfo _stat = new StatInfo();
+    public StatInfo Stat
+    {
+        get { return _stat; }
+        set
+        {
+            if (_stat.Equals(value))
+                return;
+            _stat.Hp = value.Hp;
+            _stat.MaxHp = value.MaxHp;
+            _stat.Speed = value.Speed;
+        }
+    }
+    public float Speed
+    {
+        get { return _stat.Speed; }
+        set { _stat.Speed = value; }
+    }
     protected bool _updated = false;
 
     PositionInfo _positionInfo = new PositionInfo();
@@ -49,7 +64,7 @@ public class CreatureController : MonoBehaviour
     }
     protected Animator _animator;
     protected SpriteRenderer _spriteRenderer;
-    
+
     public virtual CreatureState State
     {
         get { return PosInfo.State; }
@@ -60,7 +75,7 @@ public class CreatureController : MonoBehaviour
 
             PosInfo.State = value;
             UpdateAnimation();
-            _updated = true;    
+            _updated = true;
         }
     }
     public MoveDir Dir
@@ -235,20 +250,20 @@ public class CreatureController : MonoBehaviour
 
         // 도착 여부 체크
         float dist = moveDir.magnitude;
-        if (dist < _speed * Time.deltaTime)
+        if (dist < Speed * Time.deltaTime)
         {
             transform.position = destPos;
             MoveToNextPos();
         }
         else
         {
-            transform.position += moveDir.normalized * _speed * Time.deltaTime;
+            transform.position += moveDir.normalized * Speed * Time.deltaTime;
             State = CreatureState.Moving;
         }
     }
     protected virtual void MoveToNextPos()
     {
-        
+
     }
     protected virtual void UpdateAttack()
     {

@@ -56,3 +56,5 @@ C:\Users\LeeDeukYu\Desktop\github\MMO_Game\Server\Server\obj\Debug\net6.0\Server
 C:\Users\LeeDeukYu\Desktop\github\MMO_Game\Server\Server\obj\Debug\net6.0\ref\Server.dll
 D:\github\MMO_Game\Server\Server\bin\Debug\net6.0\Newtonsoft.Json.dll
 D:\github\MMO_Game\Server\Server\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\LeeDeukYu\Desktop\github\MMO_Game\Server\Server\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\LeeDeukYu\Desktop\github\MMO_Game\Server\Server\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

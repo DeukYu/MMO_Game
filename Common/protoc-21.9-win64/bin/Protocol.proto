@@ -15,6 +15,7 @@ enum MsgId {
   S2C_ATTACK = 7;
   C2S_SKILL = 8;
   S2C_SKILL = 9;
+  S2C_CHANGE_HP = 10;
 }
 
 enum CreatureState{
@@ -61,9 +62,12 @@ message PositionInfo{
 }
 
 message StatInfo{
-	int32 hp = 1;
-	int32 maxHp = 2;
-	float speed = 3;
+	int32 level = 1;
+	int32 hp = 2;
+	int32 maxHp = 3;
+	int32 attack = 4;
+	float speed = 5;
+	int32 totalExp = 6;
 }
 
 message SkillInfo{
@@ -104,6 +108,11 @@ message S2C_Attack{
 
 message C2S_Skill{
 	SkillInfo info = 1;
+}
+
+message S2C_ChangeHp{
+	int32 objectId = 1;
+	int32 hp = 2;
 }
 
 message S2C_Skill{

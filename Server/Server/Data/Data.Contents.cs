@@ -9,22 +9,17 @@ namespace Server.Data
 {
     #region Stat
     [Serializable]
-    public class Stat
+    public class StatData : ILoader<int, StatInfo>
     {
-        public int level;
-        public int maxHp;
-        public int attack;
-        public int totalExp;
-    }
-    [Serializable]
-    public class StatData : ILoader<int, Stat>
-    {
-        public List<Stat> stats = new List<Stat>();
-        public Dictionary<int, Stat> MakeDict()
+        public List<StatInfo> stats = new List<StatInfo>();
+        public Dictionary<int, StatInfo> MakeDict()
         {   // ToDictionary() 사용해보기    
-            Dictionary<int, Stat> dict = new Dictionary<int, Stat>();
-            foreach (Stat stat in stats)
-                dict.Add(stat.level, stat);
+            Dictionary<int, StatInfo> dict = new Dictionary<int, StatInfo>();
+            foreach (StatInfo stat in stats)
+            {
+                stat.Hp = stat.MaxHp;
+                dict.Add(stat.Level, stat);
+            }       
             return dict;
         }
     }

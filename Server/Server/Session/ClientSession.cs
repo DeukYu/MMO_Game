@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
+using Server.Data;
 using Server.Game;
 using Server.Session;
 using ServerCore;
@@ -33,6 +34,11 @@ namespace Server
                 MyPlayer.Info.PosInfo.MoveDir = MoveDir.Down;
                 MyPlayer.Info.PosInfo.PosX = 0;
                 MyPlayer.Info.PosInfo.PosY = 0;
+
+                StatInfo stat = null;
+                DataManager.StatDict.TryGetValue(1, out stat);
+                MyPlayer.StatInfo.MergeFrom(stat);
+
                 MyPlayer.Session = this;
             }
             RoomManager.Instance.Find(1).EnterGame(MyPlayer);

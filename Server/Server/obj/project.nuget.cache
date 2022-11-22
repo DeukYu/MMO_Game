@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "a9Z79aJB2XeAln1QJsEH0TF+zZPWjLBwr4HZ0TK6MEQm50Ovs1qu0TvNr3uzXugKAR6BwU+1MaRilDxTt+nxuw==",
+  "dgSpecHash": "4+6+fS88PKUzmlHata4gagj5rVNjeSPnGQNpzou3YVaoMMqqVBHYcdfsERQdYDQfJ4S7dKKq+E5s8WrM2apqBA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\LeeDeukYu\\Desktop\\github\\MMO_Game\\Server\\Server\\Server.csproj",
+  "projectFilePath": "D:\\github\\MMO_Game\\Server\\Server\\Server.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\LeeDeukYu\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512"
+    "C:\\Users\\User\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\newtonsoft.json\\12.0.1\\newtonsoft.json.12.0.1.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512"
   ],
   "logs": []
 }

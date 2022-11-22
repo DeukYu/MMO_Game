@@ -1,0 +1,17 @@
+{
+  "skills": [
+    {
+      "id": "1",
+      "name": "ArrowAttack",
+      "cooldown": "0.2",
+      "damage": "5",
+      "SkillType": "SkillProjectile",
+	  "projectileInfo":{
+		"name": "Arrow",
+		"speed": "10.0",
+		"range": "10",
+		"prefab": "Creature/Arrow"
+	  }
+    }
+  ]
+}

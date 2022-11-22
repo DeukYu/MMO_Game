@@ -17,6 +17,7 @@ public class Managers : MonoBehaviour
     #endregion
 
     #region Core
+    DataManager _data = new DataManager();
     ResourceManager _resource = new ResourceManager();
     PoolManager _pool = new PoolManager();
     SceneManagerEx _scene = new SceneManagerEx();
@@ -49,6 +50,7 @@ public class Managers : MonoBehaviour
             DontDestroyOnLoad(go);
             s_instance = go.GetComponent<Managers>();
 
+            s_instance._data.Init();
             s_instance._network.Init();
             s_instance._pool.Init();
         }

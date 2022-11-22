@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Google.Protobuf;
 using Google.Protobuf.Protocol;
+using Server.Data;
 
 namespace Server.Game
 {
@@ -27,7 +28,7 @@ namespace Server.Game
         {
             lock (_lock)
             {
-                foreach(Projectile projectile in _projectile.Values)
+                foreach (Projectile projectile in _projectile.Values)
                 {
                     projectile.Update();
                 }
@@ -42,7 +43,7 @@ namespace Server.Game
 
             lock (_lock)
             {
-                if(type == GameObjectType.Player)
+                if (type == GameObjectType.Player)
                 {
                     Player? player = gameObject as Player;
                     _players.Add(gameObject.Id, player);
@@ -63,13 +64,13 @@ namespace Server.Game
                         player.Session.Send(spawnPkt);
                     }
                 }
-                else if(type == GameObjectType.Monster)
+                else if (type == GameObjectType.Monster)
                 {
                     Monster? monster = gameObject as Monster;
                     _monsters.Add(gameObject.Id, monster);
                     monster.Room = this;
                 }
-                else if(type == GameObjectType.Projectile)
+                else if (type == GameObjectType.Projectile)
                 {
                     Projectile? projectile = gameObject as Projectile;
                     _projectile.Add(gameObject.Id, projectile);
@@ -108,7 +109,7 @@ namespace Server.Game
                         player.Session.Send(leavePkt);
                     }
                 }
-                else if(type == GameObjectType.Monster)
+                else if (type == GameObjectType.Monster)
                 {
                     Monster? monster = null;
                     if (_monsters.Remove(objectId, out monster) == false)
@@ -117,7 +118,7 @@ namespace Server.Game
                     monster.Room = null;
                     Map.ApplyLeave(monster);
                 }
-                else if(type == GameObjectType.Projectile)
+                else if (type == GameObjectType.Projectile)
                 {
                     Projectile? projectile = null;
                     if (_projectile.Remove(objectId, out projectile) == false)
@@ -125,7 +126,7 @@ namespace Server.Game
 
                     projectile.Room = null;
                 }
-                
+
                 // 타인
                 {
                     S2C_Despawn despawnPkt = new S2C_Despawn();
@@ -209,21 +210,34 @@ namespace Server.Game
                 res.Info.SkillId = skillPacket.Info.SkillId;
                 Broadcast(res);
 
-                // TODO : 스킬 사용 가능 여부 체크
-                if (skillPacket.Info.SkillId == 1)
-                {
-                    Arrow arrow = ObjectManager.Instance.Add<Arrow>();
-                    if (arrow == null)
-                        return;
+                Data.Skill skillData = null;
+                if (DataManager.SkillDict.TryGetValue(skillPacket.Info.SkillId, out skillData) == false)
+                    return;
 
-                    arrow.Owner = player;
-                    arrow.PosInfo.State = CreatureState.Moving;
-                    arrow.PosInfo.MoveDir = player.PosInfo.MoveDir;
-                    arrow.PosInfo.PosX = player.PosInfo.PosX;
-                    arrow.PosInfo.PosY = player.PosInfo.PosY;
-                    EnterGame(arrow);
+                switch (skillData.skillType)
+                {
+                    case SkillType.SkillAuto:
+                        {
+
+                        }
+                        break;
+                    case SkillType.SkillProjectile:
+                        {
+                            Arrow arrow = ObjectManager.Instance.Add<Arrow>();
+                            if (arrow == null)
+                                return;
+
+                            arrow.Owner = player;
+                            arrow.Data = skillData;
+
+                            arrow.PosInfo.State = CreatureState.Moving;
+                            arrow.PosInfo.MoveDir = player.PosInfo.MoveDir;
+                            arrow.PosInfo.PosX = player.PosInfo.PosX;
+                            arrow.PosInfo.PosY = player.PosInfo.PosY;
+                            EnterGame(arrow);
+                        }
+                        break;
                 }
-                // TODO : 데미지 판정
             }
         }
         public void Broadcast(IMessage packet)

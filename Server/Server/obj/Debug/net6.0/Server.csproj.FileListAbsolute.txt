@@ -54,3 +54,5 @@ C:\Users\LeeDeukYu\Desktop\github\MMO_Game\Server\Server\obj\Debug\net6.0\refint
 C:\Users\LeeDeukYu\Desktop\github\MMO_Game\Server\Server\obj\Debug\net6.0\Server.pdb
 C:\Users\LeeDeukYu\Desktop\github\MMO_Game\Server\Server\obj\Debug\net6.0\Server.genruntimeconfig.cache
 C:\Users\LeeDeukYu\Desktop\github\MMO_Game\Server\Server\obj\Debug\net6.0\ref\Server.dll
+D:\github\MMO_Game\Server\Server\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\github\MMO_Game\Server\Server\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

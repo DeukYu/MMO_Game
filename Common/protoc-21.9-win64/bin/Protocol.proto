@@ -40,6 +40,12 @@ enum GameObjectType{
 	PROJECTILE = 4;
 }
 
+enum SkillType{
+	SKILL_NONE = 0;
+	SKILL_AUTO = 1;
+	SKILL_PROJECTILE = 2;
+}
+
 message ObjectInfo{
 	int32	objectId = 1;
 	string	name = 2;

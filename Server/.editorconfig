@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS8714: 형식은 제네릭 형식 또는 메서드에서 형식 매개 변수로 사용할 수 없습니다. 형식 인수의 Null 허용 여부가 'notnull' 제약 조건과 일치하지 않습니다.
+dotnet_diagnostic.CS8714.severity = none

@@ -9,6 +9,7 @@ namespace Server.Game
 {
     public class Projectile : GameObject
     {
+        public Data.Skill Data { get; set; }
         public Projectile()
         {
             ObjectType = GameObjectType.Projectile;

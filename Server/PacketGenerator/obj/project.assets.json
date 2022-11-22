@@ -5,14 +5,10 @@
       "Google.Protobuf/3.21.9": {
         "type": "package",
         "compile": {
-          "lib/net5.0/Google.Protobuf.dll": {
-            "related": ".pdb;.xml"
-          }
+          "lib/net5.0/Google.Protobuf.dll": {}
         },
         "runtime": {
-          "lib/net5.0/Google.Protobuf.dll": {
-            "related": ".pdb;.xml"
-          }
+          "lib/net5.0/Google.Protobuf.dll": {}
         }
       }
     }
@@ -48,19 +44,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\LeeDeukYu\\.nuget\\packages\\": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\LeeDeukYu\\Desktop\\github\\MMO_Game\\Server\\PacketGenerator\\PacketGenerator.csproj",
+      "projectUniqueName": "D:\\github\\MMO_Game\\Server\\PacketGenerator\\PacketGenerator.csproj",
       "projectName": "PacketGenerator",
-      "projectPath": "C:\\Users\\LeeDeukYu\\Desktop\\github\\MMO_Game\\Server\\PacketGenerator\\PacketGenerator.csproj",
-      "packagesPath": "C:\\Users\\LeeDeukYu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\LeeDeukYu\\Desktop\\github\\MMO_Game\\Server\\PacketGenerator\\obj\\",
+      "projectPath": "D:\\github\\MMO_Game\\Server\\PacketGenerator\\PacketGenerator.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "D:\\github\\MMO_Game\\Server\\PacketGenerator\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\LeeDeukYu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -97,8 +98,7 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -107,7 +107,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

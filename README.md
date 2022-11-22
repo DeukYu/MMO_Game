@@ -13,3 +13,4 @@
 
 # Open Source
 - protobuf : https://github.com/protocolbuffers/protobuf
+- Newtonsoft.JSON : https://www.nuget.org/packages/Newtonsoft.Json

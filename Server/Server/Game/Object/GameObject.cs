@@ -24,10 +24,24 @@ namespace Server.Game
             get { return StatInfo.Speed; }
             set { StatInfo.Speed = value; }
         }
+        public MoveDir Dir
+        {
+            get { return PosInfo.MoveDir; }
+            set { PosInfo.MoveDir = value; }
+        }
+        public CreatureState State
+        {
+            get { return PosInfo.State; }
+            set { PosInfo.State = value; }
+        }
         public GameObject()
         {
             Info.PosInfo = PosInfo;
             Info.StatInfo = StatInfo;
+        }
+        public virtual void Update()
+        {
+
         }
         public Vector2Int CellPos
         {

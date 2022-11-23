@@ -7,7 +7,7 @@ public class BaseController : MonoBehaviour
 {
     public int Id { get; set; }
     StatInfo _stat = new StatInfo();
-    public StatInfo Stat
+    public virtual StatInfo Stat
     {
         get { return _stat; }
         set
@@ -17,13 +17,20 @@ public class BaseController : MonoBehaviour
             _stat.Hp = value.Hp;
             _stat.MaxHp = value.MaxHp;
             _stat.Speed = value.Speed;
-            UpdateHpBar();
         }
     }
     public float Speed
     {
         get { return _stat.Speed; }
         set { _stat.Speed = value; }
+    }
+    public virtual int Hp
+    {
+        get { return Stat.Hp; }
+        set
+        {
+            Stat.Hp = value;
+        }
     }
     protected bool _updated = false;
 
@@ -276,18 +283,5 @@ public class BaseController : MonoBehaviour
     protected virtual void UpdateDead()
     {
 
-    }
-    public virtual void OnDamaged()
-    {
-
-    }
-    public virtual void OnDead()
-    {
-        State = CreatureState.Dead;
-
-        GameObject effect = Managers.Resource.Instantiate("Effect/DieEffect");
-        effect.transform.position = transform.position;
-        effect.GetComponent<Animator>().Play("START");
-        GameObject.Destroy(effect, 0.5f);
     }
 }

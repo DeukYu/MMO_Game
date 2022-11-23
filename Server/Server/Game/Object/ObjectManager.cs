@@ -23,12 +23,12 @@ namespace Server.Game
             lock (_lock)
             {
                 gameObject.Id = GnerateId(gameObject.ObjectType);
+                
                 if (gameObject.ObjectType == GameObjectType.Player)
                 {
                     _players.Add(gameObject.Id, gameObject as Player);
                 }
             }
-
             return gameObject;
         }
         int GnerateId(GameObjectType type)

@@ -4,7 +4,7 @@ using Google.Protobuf.Protocol;
 using UnityEngine;
 using static Define;
 
-public class CreatureController : MonoBehaviour
+public class CreatureController : BaseController
 {
     HpBar _hpBar;
     public int Id { get; set; }
@@ -309,5 +309,14 @@ public class CreatureController : MonoBehaviour
     public virtual void OnDamaged()
     {
 
+    }
+    public virtual void OnDead()
+    {
+        State = CreatureState.Dead;
+
+        GameObject effect = Managers.Resource.Instantiate("Effect/DieEffect");
+        effect.transform.position = transform.position;
+        effect.GetComponent<Animator>().Play("START");
+        GameObject.Destroy(effect, 0.5f);
     }
 }

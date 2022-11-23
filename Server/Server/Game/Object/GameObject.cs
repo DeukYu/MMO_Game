@@ -74,14 +74,28 @@ namespace Server.Game
             changeHpPacket.Hp = StatInfo.Hp;
             Room.Broadcast(changeHpPacket);
 
-            if(StatInfo.Hp <= 0)
+            if (StatInfo.Hp <= 0)
             {
                 OnDead(attacker);
             }
         }
         public virtual void OnDead(GameObject attacker)
         {
+            S2C_Die diePacket = new S2C_Die();
+            diePacket.ObjectId = Id;
+            diePacket.AttackerId = attacker.Id;
+            Room.Broadcast(diePacket);
 
+            GameRoom room = Room;
+            room.LeaveGame(Id);
+
+            StatInfo.Level = StatInfo.MaxHp;
+            PosInfo.State = CreatureState.Idle;
+            PosInfo.MoveDir = MoveDir.Down;
+            PosInfo.PosX = 0;
+            PosInfo.PosY = 0;
+
+            room.EnterGame(this);
         }
     }
 }

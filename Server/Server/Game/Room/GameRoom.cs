@@ -49,6 +49,7 @@ namespace Server.Game
                     _players.Add(gameObject.Id, player);
                     player.Room = this;
 
+                    Map.ApplyMove(player, new Vector2Int(player.CellPos.x, player.CellPos.y));
                     // 본인
                     {
                         S2C_EnterGame enterPkt = new S2C_EnterGame();
@@ -61,6 +62,14 @@ namespace Server.Game
                             if (player != p)
                                 spawnPkt.Objects.Add(p.Info);
                         }
+                        foreach(Monster m in _monsters.Values)
+                        {
+                            spawnPkt.Objects.Add(m.Info);
+                        }
+                        foreach(Projectile p in _projectile.Values)
+                        {
+                            spawnPkt.Objects.Add(p.Info);
+                        }
                         player.Session.Send(spawnPkt);
                     }
                 }
@@ -69,6 +78,8 @@ namespace Server.Game
                     Monster? monster = gameObject as Monster;
                     _monsters.Add(gameObject.Id, monster);
                     monster.Room = this;
+
+                    Map.ApplyMove(monster, new Vector2Int(monster.CellPos.x, monster.CellPos.y));
                 }
                 else if (type == GameObjectType.Projectile)
                 {

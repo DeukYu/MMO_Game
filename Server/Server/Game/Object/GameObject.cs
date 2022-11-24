@@ -79,6 +79,17 @@ namespace Server.Game
             }
             return cellPos;
         }
+        public static MoveDir GetDirFromVec(Vector2Int dir)
+        {
+            if (dir.x > 0)
+                return MoveDir.Right;
+            else if (dir.x < 0)
+                return MoveDir.Left;
+            else if (dir.y > 0)
+                return MoveDir.Up;
+            else
+                return MoveDir.Down;
+        }
         public virtual void OnDamaged(GameObject attacker, int damage)
         {
             StatInfo.Hp = Math.Max(StatInfo.Hp - damage, 0);

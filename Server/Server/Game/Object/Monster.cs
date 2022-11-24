@@ -44,6 +44,10 @@ namespace Server.Game
                     break;
             }
         }
+        Player _target;
+        int _searchCellDist = 10;
+        int _chaseCellDist = 20;
+
         long _nextSearchTick = 0;
         protected virtual void UpdateIdle()
         {
@@ -51,15 +55,58 @@ namespace Server.Game
                 return;
             _nextSearchTick = Environment.TickCount64 + 1000;
 
-            Room.FindPlayer(p =>
+            Player target = Room.FindPlayer(p =>
             {
                 Vector2Int dir = p.CellPos - CellPos;
-                return true;
+                return dir.cellDistFromZero <= _searchCellDist;
             });
+
+            if (target == null)
+                return;
+
+            _target = target;
+            State = CreatureState.Moving;
         }
+        long _nextMoveTick = 0;
         protected virtual void UpdateMoving()
         {
+            if (_nextMoveTick > Environment.TickCount64)
+                return;
 
+            int moveTick = (int)(1000 / Speed);
+            _nextMoveTick = Environment.TickCount64 + moveTick;
+
+            if(_target == null || _target.Room != Room)
+            {
+                _target = null;
+                State = CreatureState.Idle;
+                return;
+            }
+
+            int dist = (_target.CellPos - CellPos).cellDistFromZero;
+            if(dist == 0 || dist > _chaseCellDist)
+            {
+                _target = null;
+                State = CreatureState.Idle;
+                return;
+            }
+
+            List<Vector2Int> path = Room.Map.FindPath(CellPos, _target.CellPos, false);
+            if(path.Count < 2 || path.Count > _chaseCellDist)
+            {
+                _target = null;
+                State = CreatureState.Idle;
+                return;
+            }
+
+            // 이동
+            Dir = GetDirFromVec(path[1] - CellPos);
+            Room.Map.ApplyMove(this, path[1]);
+
+            S2C_Move movePacket = new S2C_Move();
+            movePacket.ObjectId = Id;
+            movePacket.PosInfo = PosInfo;
+            Room.Broadcast(movePacket);
         }
         protected virtual void UpdateAttack()
         {

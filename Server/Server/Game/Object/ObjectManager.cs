@@ -12,6 +12,7 @@ namespace Server.Game
         public static ObjectManager Instance { get; } = new ObjectManager();
         object _lock = new object();
         Dictionary<int, Player> _players = new Dictionary<int, Player>();
+        Dictionary<int, Monster> _monsters = new Dictionary<int, Monster>();
 
         // [UNUSED(1)][TYPE(7)][ID(24)]
         int _counter = 0;
@@ -27,6 +28,10 @@ namespace Server.Game
                 if (gameObject.ObjectType == GameObjectType.Player)
                 {
                     _players.Add(gameObject.Id, gameObject as Player);
+                }
+                else if(gameObject.ObjectType == GameObjectType.Monster)
+                {
+                    _monsters.Add(gameObject.Id, gameObject as Monster);
                 }
             }
             return gameObject;
@@ -50,19 +55,25 @@ namespace Server.Game
             {
                 if (objectType == GameObjectType.Player)
                     return _players.Remove(objectId);
+                else if(objectType == GameObjectType.Monster)
+                    return _monsters.Remove(objectId);
             }
             return false;
         }
-        public Player? Find(int objectId)
+        public GameObject? Find(int objectId)
         {
             GameObjectType objectType = GetObjectTypeById(objectId);
             lock (_lock)
             {
                 if (objectType == GameObjectType.Player)
                 {
-                    Player? player = null;
-                    if (_players.TryGetValue(objectId, out player))
+                    if (_players.TryGetValue(objectId, out Player? player))
                         return player;
+                }
+                else if (objectType == GameObjectType.Monster)
+                {
+                    if (_monsters.TryGetValue(objectId, out Monster? monster))
+                        return monster;
                 }
                 return null;
             }

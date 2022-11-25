@@ -29,7 +29,7 @@ internal class PacketHandler
         if (room == null)
             return;
 
-        room.HandleMove(player, req);
+        room.Push(room.HandleMove, player, req);
         // TODO : 검증
     }
     public static void C2S_AttackHandler(PacketSession session, IMessage packet)
@@ -47,7 +47,7 @@ internal class PacketHandler
         if (room == null)
             return;
 
-        room.HandleAttack(player, req);
+        room.Push(room.HandleAttack, player, req);
     }
     public static void C2S_SkillHandler(PacketSession session, IMessage packet)
     {
@@ -61,9 +61,7 @@ internal class PacketHandler
             return;
 
         GameRoom? room = player.Room;
-        if (room == null)
-            return;
-
-        room.HandleSkill(player, req);
+        if (room != null)
+            room.Push(room.HandleSkill, player, req);
     }
 }

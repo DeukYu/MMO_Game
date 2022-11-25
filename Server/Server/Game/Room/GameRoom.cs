@@ -111,8 +111,8 @@ namespace Server.Game
                 if (_players.Remove(objectId, out player) == false)
                     return;
 
-                player.Room = null;
                 Map.ApplyLeave(player);
+                player.Room = null;
 
                 // 본인
                 {
@@ -126,8 +126,8 @@ namespace Server.Game
                 if (_monsters.Remove(objectId, out monster) == false)
                     return;
 
-                monster.Room = null;
                 Map.ApplyLeave(monster);
+                monster.Room = null;
             }
             else if (type == GameObjectType.Projectile)
             {
@@ -237,12 +237,11 @@ namespace Server.Game
                         arrow.PosInfo.PosX = player.PosInfo.PosX;
                         arrow.PosInfo.PosY = player.PosInfo.PosY;
                         arrow.Speed = skillData.projectileInfo.speed;
-                        EnterGame(arrow);
+                        Push(EnterGame, arrow);
                     }
                     break;
             }
         }
-        // TODO
         public Player FindPlayer(Func<GameObject, bool> condition)
         {
             foreach (Player player in _players.Values)

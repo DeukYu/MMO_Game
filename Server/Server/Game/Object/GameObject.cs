@@ -97,6 +97,9 @@ namespace Server.Game
         }
         public virtual void OnDamaged(GameObject attacker, int damage)
         {
+            if (Room == null)
+                return;
+
             StatInfo.Hp = Math.Max(StatInfo.Hp - damage, 0);
 
             S2C_ChangeHp changeHpPacket = new S2C_ChangeHp();
@@ -111,13 +114,16 @@ namespace Server.Game
         }
         public virtual void OnDead(GameObject attacker)
         {
+            if (Room == null)
+                return;
+
             S2C_Die diePacket = new S2C_Die();
             diePacket.ObjectId = Id;
             diePacket.AttackerId = attacker.Id;
             Room.Broadcast(diePacket);
 
             GameRoom room = Room;
-            room.Push(room.LeaveGame, Id);
+            room.LeaveGame(Id);
 
             StatInfo.Level = StatInfo.MaxHp;
             PosInfo.State = CreatureState.Idle;
@@ -125,7 +131,7 @@ namespace Server.Game
             PosInfo.PosX = 0;
             PosInfo.PosY = 0;
 
-            room.Push(room.EnterGame, this);
+            room.EnterGame(this);
         }
     }
 }

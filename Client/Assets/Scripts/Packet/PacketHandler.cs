@@ -55,11 +55,11 @@ class PacketHandler
         if (go == null)
             return;
 
-        PlayerController pc = go.GetComponent<PlayerController>();
-        if (pc == null)
+        CreatureController cc = go.GetComponent<CreatureController>();
+        if (cc == null)
             return;
 
-        pc.UseAttack();
+        cc.UseAttack();
     }
     public static void S2C_SkillHandler(PacketSession session, IMessage packet)
     {

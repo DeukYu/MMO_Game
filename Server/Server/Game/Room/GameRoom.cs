@@ -33,7 +33,7 @@ namespace Server.Game
         {
             lock (_lock)
             {
-                foreach(Monster monster in _players.Values)
+                foreach(Monster monster in _monsters.Values)
                 {
                     monster.Update();
                 }

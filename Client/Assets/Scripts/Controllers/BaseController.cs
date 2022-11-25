@@ -222,8 +222,6 @@ public class BaseController : MonoBehaviour
         Vector3 pos = Managers.Map.CurrentGrid.CellToWorld(CellPos) + new Vector3(0.5f, 0.5f);
         transform.position = pos;
 
-        State = CreatureState.Idle;
-        Dir = MoveDir.Down;
         UpdateAnimation();
     }
     protected virtual void UpdateController()

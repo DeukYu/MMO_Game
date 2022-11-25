@@ -25,7 +25,7 @@ namespace Server.Game
         // FSM (Finite State Machine)
         public override void Update()
         {
-            switch(State)
+            switch (State)
             {
                 case CreatureState.Idle:
                     UpdateIdle();
@@ -67,6 +67,7 @@ namespace Server.Game
             _target = target;
             State = CreatureState.Moving;
         }
+        int _attackRange = 1;
         long _nextMoveTick = 0;
         protected virtual void UpdateMoving()
         {
@@ -76,41 +77,106 @@ namespace Server.Game
             int moveTick = (int)(1000 / Speed);
             _nextMoveTick = Environment.TickCount64 + moveTick;
 
-            if(_target == null || _target.Room != Room)
+            if (_target == null || _target.Room != Room)
             {
                 _target = null;
                 State = CreatureState.Idle;
+                BroadcastMove();
                 return;
             }
 
-            int dist = (_target.CellPos - CellPos).cellDistFromZero;
-            if(dist == 0 || dist > _chaseCellDist)
+            Vector2Int dir = _target.CellPos - CellPos;
+            int dist = dir.cellDistFromZero;
+            if (dist == 0 || dist > _chaseCellDist)
             {
                 _target = null;
                 State = CreatureState.Idle;
+                BroadcastMove();
                 return;
             }
 
             List<Vector2Int> path = Room.Map.FindPath(CellPos, _target.CellPos, false);
-            if(path.Count < 2 || path.Count > _chaseCellDist)
+            if (path.Count < 2 || path.Count > _chaseCellDist)
             {
                 _target = null;
                 State = CreatureState.Idle;
+                BroadcastMove();
+                return;
+            }
+
+            // Check Attack 
+            if (dist <= _attackRange && (dir.x == 0 || dir.y == 0))
+            {
+                _coolTick = 0;
+                State = CreatureState.Attack;
                 return;
             }
 
             // 이동
             Dir = GetDirFromVec(path[1] - CellPos);
             Room.Map.ApplyMove(this, path[1]);
-
+            BroadcastMove();
+        }
+        void BroadcastMove()
+        {
             S2C_Move movePacket = new S2C_Move();
             movePacket.ObjectId = Id;
             movePacket.PosInfo = PosInfo;
             Room.Broadcast(movePacket);
         }
+        long _coolTick = 0;
         protected virtual void UpdateAttack()
         {
+            if(_coolTick == 0)
+            {
+                // 유효한 타겟인지 
+                if(_target == null || _target.Room != Room || _target.Hp == 0)
+                {
+                    _target = null;
+                    State = CreatureState.Moving;
+                    BroadcastMove();
+                    return;
+                }
+                // 스킬이 아직 사용가능한지
+                Vector2Int dir = (_target.CellPos - CellPos);
+                int dist = dir.cellDistFromZero;
+                bool canUseAttack = (dist <= _attackRange && (dir.x == 0 || dir.y == 0));
+                if(canUseAttack == false)
+                {
+                    State = CreatureState.Moving;
+                    BroadcastMove();
+                    return;
+                }
+                if (dist <= _attackRange && (dir.x == 0 || dir.y == 0))
+                {
+                    _coolTick = 0;
+                    State = CreatureState.Attack;
+                    return;
+                }
+                // 타겟팅 방향 주시
+                MoveDir lookDir = GetDirFromVec(dir);
+                if(lookDir != Dir)
+                {
+                    Dir = lookDir;
+                    BroadcastMove();
+                }
+                // 데미지 판정
+                _target.OnDamaged(this, StatInfo.Attack);
 
+                // 공격 사용 Broadcast
+                S2C_Attack attack = new S2C_Attack();
+                attack.ObjectId = Id;
+                Room.Broadcast(attack);
+
+                // 스킬 쿨타임 적용
+                int coolTick = (int)(0.5f * 1000);
+                _coolTick = Environment.TickCount64 + coolTick;
+            }
+
+            if (_coolTick > Environment.TickCount64)
+                return;
+
+            _coolTick = 0;
         }
         protected virtual void UpdateSkill()
         {

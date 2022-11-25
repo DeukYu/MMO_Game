@@ -34,6 +34,11 @@ namespace Server.Game
             get { return PosInfo.State; }
             set { PosInfo.State = value; }
         }
+        public int Hp
+        {
+            get { return StatInfo.Hp; }
+            set { StatInfo.Hp = Math.Clamp(value, 0, StatInfo.MaxHp); }
+        }
         public GameObject()
         {
             Info.PosInfo = PosInfo;

@@ -17,6 +17,7 @@ public class PlayerController : CreatureController
     {
         if (_animator == null || _spriteRenderer == null)
             return;
+
         if (State == CreatureState.Idle)
         {
             switch (Dir)
@@ -92,7 +93,7 @@ public class PlayerController : CreatureController
     {
         base.UpdateController();
     }
-    public void UseAttack()
+    public override void UseAttack()
     {
         _coAttack = StartCoroutine("CoStartPunch");
     }

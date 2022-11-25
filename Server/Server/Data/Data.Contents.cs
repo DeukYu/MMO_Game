@@ -48,7 +48,7 @@ namespace Server.Data
     {
         public List<Skill> skills = new List<Skill>();
         public Dictionary<int, Skill> MakeDict()
-        {   // ToDictionary() 사용해보기    
+        {      
             Dictionary<int, Skill> dict = new Dictionary<int, Skill>();
             foreach (Skill skill in skills)
                 dict.Add(skill.id, skill);

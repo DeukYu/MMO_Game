@@ -9,7 +9,6 @@ using ServerCore;
 
 namespace Server.Game
 {
-
     public struct Pos
     {
         public Pos(int y, int x) { Y = y; X = x; }

@@ -29,6 +29,8 @@ class PacketManager
         _handler.Add((ushort)MsgId.C2SAttack, PacketHandler.C2S_AttackHandler);
         _onRecv.Add((ushort)MsgId.C2SSkill, MakePacket<C2S_Skill>);
         _handler.Add((ushort)MsgId.C2SSkill, PacketHandler.C2S_SkillHandler);
+        _onRecv.Add((ushort)MsgId.C2SLogin, MakePacket<C2S_Login>);
+        _handler.Add((ushort)MsgId.C2SLogin, PacketHandler.C2S_LoginHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

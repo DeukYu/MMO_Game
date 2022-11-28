@@ -108,4 +108,18 @@ class PacketHandler
         cc.Hp = 0;
         cc.OnDead();
     }
+    public static void S2C_ConnectedHandler(PacketSession session, IMessage packet)
+    {
+        Debug.Log("S2C_ConnectedHandler");
+        C2S_Login loginPacket = new C2S_Login();
+        loginPacket.UniqueId = SystemInfo.deviceUniqueIdentifier;
+
+        Managers.Network.Send(loginPacket);
+    }
+    public static void S2C_LoginHandler(PacketSession session, IMessage packet)
+    {
+        System.Console.WriteLine("S2C_LoginHandler");
+        S2C_Login loginPacket = (S2C_Login)packet;
+        Debug.Log($"LoginOk({loginPacket.LoginOK})");
+    }
 }

@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Google.Protobuf;
 using Google.Protobuf.Protocol;
+using Microsoft.EntityFrameworkCore;
 using Server;
+using Server.DB;
 using Server.Game;
 using ServerCore;
 
@@ -61,5 +63,37 @@ internal class PacketHandler
         GameRoom? room = player.Room;
         if (room != null)
             room.Push(room.HandleSkill, player, req);
+    }
+
+    public static void C2S_LoginHandler(PacketSession session, IMessage packet)
+    {
+        C2S_Login loginPacket = packet as C2S_Login;
+        ClientSession clientSession = session as ClientSession;
+
+        Console.WriteLine($"UniqueId({loginPacket.UniqueId})");
+
+        // TODO : 보안 체크
+        
+        // TODO : Problem
+        using(AppDbContext db = new AppDbContext())
+        {
+            AccountDb findAccount = db.Accounts
+                .Where(a => a.AccountName == loginPacket.UniqueId).FirstOrDefault();
+
+            if(findAccount != null)
+            {
+                S2C_Login res = new S2C_Login() { LoginOK = 1 };
+                clientSession.Send(res);
+            }
+            else
+            {
+                AccountDb newAccount = new AccountDb() { AccountName = loginPacket.UniqueId };
+                db.Accounts.Add(newAccount);
+                db.SaveChanges();
+
+                S2C_Login res = new S2C_Login() { LoginOK = 1 };
+                clientSession.Send(res);
+            }
+        }
     }
 }

@@ -17,6 +17,9 @@ enum MsgId {
   S2C_SKILL = 9;
   S2C_CHANGE_HP = 10;
   S2C_DIE = 11;
+  S2C_CONNECTED = 12;
+  C2S_LOGIN = 13;
+  S2C_LOGIN = 14;
 }
 
 enum CreatureState{
@@ -119,6 +122,18 @@ message S2C_ChangeHp{
 message S2C_Die{
 	int32 objectId = 1;
 	int32 attackerId = 2;
+}
+
+message S2C_Connected{
+
+}
+
+message C2S_Login{
+	string uniqueId = 1;
+}
+
+message S2C_Login{
+	int32 loginOK = 1;
 }
 
 message S2C_Skill{

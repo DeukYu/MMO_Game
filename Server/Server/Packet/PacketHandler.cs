@@ -19,8 +19,6 @@ internal class PacketHandler
         ClientSession? clientSession = session as ClientSession;
         if(clientSession == null) return;
 
-        Console.WriteLine($"C2S_Move ({req.PosInfo.PosX}, {req.PosInfo.PosY})");
-
         Player? player = clientSession.MyPlayer;
         if (player == null)
             return;

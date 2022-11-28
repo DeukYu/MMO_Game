@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Server.Data;
+using Server.DB;
 using Server.Game;
 using Server.Session;
 using ServerCore;
@@ -24,6 +25,13 @@ namespace Server
         {
             ConfigManager.LoadConfig();
             DataManager.LoadData();
+
+            //DB Test
+            using(AppDbContext db = new AppDbContext())
+            {
+                db.Accounts.Add(new AccountDb() { AccountName = "TestAccount" });
+                db.SaveChanges();
+            }
 
             GameRoom room = RoomManager.Instance.Add(1);
             TickRoom(room, 50);

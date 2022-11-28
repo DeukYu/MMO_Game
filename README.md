@@ -12,5 +12,8 @@
 - <img src="https://img.shields.io/badge/C%23-00599C?style=flat&logo=Csharp&logoColor=white"/>
 
 # Open Source
-- protobuf : https://github.com/protocolbuffers/protobuf
-- Newtonsoft.JSON : https://www.nuget.org/packages/Newtonsoft.Json
+- protobuf : https://github.com/protocolbuffers/protobuf   
+- Newtonsoft.JSON
+- Microsoft.EntityFrameworkCore.SqlServer   
+- Microsoft.EntityFrameworkCore.Tools   
+- Microsoft.Extensions.Logging.Console   

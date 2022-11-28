@@ -13,4 +13,9 @@
 
 # Open Source
 - protobuf : https://github.com/protocolbuffers/protobuf
-- Newtonsoft.JSON : https://www.nuget.org/packages/Newtonsoft.Json
+   
+- Nuget   
+- Newtonsoft.JSON
+- Microsoft.EntityFrameworkCore.SqlServer   
+- Microsoft.EntityFrameworkCore.Tools   
+- Microsoft.Extensions.Logging.Console   

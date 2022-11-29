@@ -25,6 +25,10 @@ class PacketManager
 	{
         _onRecv.Add((ushort)MsgId.C2SLogin, MakePacket<C2S_Login>);
         _handler.Add((ushort)MsgId.C2SLogin, PacketHandler.C2S_LoginHandler);
+        _onRecv.Add((ushort)MsgId.C2SCreatePlayer, MakePacket<C2S_CreatePlayer>);
+        _handler.Add((ushort)MsgId.C2SCreatePlayer, PacketHandler.C2S_CreatePlayerHandler);
+        _onRecv.Add((ushort)MsgId.C2SEnterGame, MakePacket<C2S_EnterGame>);
+        _handler.Add((ushort)MsgId.C2SEnterGame, PacketHandler.C2S_EnterGameHandler);
         _onRecv.Add((ushort)MsgId.C2SMove, MakePacket<C2S_Move>);
         _handler.Add((ushort)MsgId.C2SMove, PacketHandler.C2S_MoveHandler);
         _onRecv.Add((ushort)MsgId.C2SAttack, MakePacket<C2S_Attack>);

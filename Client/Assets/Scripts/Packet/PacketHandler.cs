@@ -20,6 +20,10 @@ class PacketHandler
         S2C_Login loginPacket = (S2C_Login)packet;
         Debug.Log($"LoginOk({loginPacket.BSuccess})");
     }
+    public static void S2C_CreatePlayerHandler(PacketSession session, IMessage packet)
+    {
+        S2C_CreatePlayer createPlayerPacket = (S2C_CreatePlayer)packet;
+    }
     public static void S2C_EnterGameHandler(PacketSession session, IMessage packet)
     {
         S2C_EnterGame enterGamePacket = packet as S2C_EnterGame;

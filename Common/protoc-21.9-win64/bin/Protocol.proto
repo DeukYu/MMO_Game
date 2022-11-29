@@ -8,18 +8,21 @@ enum MsgId {
   S2C_CONNECTED = 0;
   C2S_LOGIN = 1;
   S2C_LOGIN = 2;
-  S2C_ENTER_GAME = 3;
-  S2C_LEAVE_GAME = 4;
-  S2C_SPAWN = 5;
-  S2C_DESPAWN = 6;
-  C2S_MOVE = 7;
-  S2C_MOVE = 8;
-  C2S_ATTACK = 9;
-  S2C_ATTACK = 10;
-  C2S_SKILL = 11;
-  S2C_SKILL = 12;
-  S2C_CHANGE_HP = 13;
-  S2C_DIE = 14;
+  C2S_CREATE_PLAYER = 3;
+  S2C_CREATE_PLAYER = 4;
+  C2S_ENTER_GAME = 5;
+  S2C_ENTER_GAME = 6;
+  S2C_LEAVE_GAME = 7;
+  S2C_SPAWN = 8;
+  S2C_DESPAWN = 9;
+  C2S_MOVE = 10;
+  S2C_MOVE = 11;
+  C2S_ATTACK = 12;
+  S2C_ATTACK = 13;
+  C2S_SKILL = 14;
+  S2C_SKILL = 15;
+  S2C_CHANGE_HP = 16;
+  S2C_DIE = 17;
 }
 
 enum CreatureState{
@@ -49,6 +52,17 @@ enum SkillType{
 	SKILL_NONE = 0;
 	SKILL_AUTO = 1;
 	SKILL_PROJECTILE = 2;
+}
+
+enum PlayerServerState{
+	SERVER_STATE_LOGIN = 0;
+	SERVER_STATE_LOBBY = 1;
+	SERVER_STATE_GAME = 2;
+}
+
+message LobbyPlayerInfo{
+	string name = 1;
+	StatInfo statInfo = 2;
 }
 
 message ObjectInfo{
@@ -88,6 +102,19 @@ message C2S_Login{
 
 message S2C_Login{
 	bool bSuccess = 1;
+	repeated LobbyPlayerInfo players = 2;
+}
+
+message C2S_CreatePlayer{
+	string name = 1;
+}
+
+message S2C_CreatePlayer{
+	LobbyPlayerInfo player = 1;
+}
+
+message C2S_EnterGame{
+	string name = 1;
 }
 
 message S2C_EnterGame {

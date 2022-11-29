@@ -23,6 +23,12 @@ class PacketManager
 
 	public void Register()
 	{
+        _onRecv.Add((ushort)MsgId.S2CConnected, MakePacket<S2C_Connected>);
+        _handler.Add((ushort)MsgId.S2CConnected, PacketHandler.S2C_ConnectedHandler);
+        _onRecv.Add((ushort)MsgId.S2CLogin, MakePacket<S2C_Login>);
+        _handler.Add((ushort)MsgId.S2CLogin, PacketHandler.S2C_LoginHandler);
+        _onRecv.Add((ushort)MsgId.S2CCreatePlayer, MakePacket<S2C_CreatePlayer>);
+        _handler.Add((ushort)MsgId.S2CCreatePlayer, PacketHandler.S2C_CreatePlayerHandler);
         _onRecv.Add((ushort)MsgId.S2CEnterGame, MakePacket<S2C_EnterGame>);
         _handler.Add((ushort)MsgId.S2CEnterGame, PacketHandler.S2C_EnterGameHandler);
         _onRecv.Add((ushort)MsgId.S2CLeaveGame, MakePacket<S2C_LeaveGame>);
@@ -41,10 +47,6 @@ class PacketManager
         _handler.Add((ushort)MsgId.S2CChangeHp, PacketHandler.S2C_ChangeHpHandler);
         _onRecv.Add((ushort)MsgId.S2CDie, MakePacket<S2C_Die>);
         _handler.Add((ushort)MsgId.S2CDie, PacketHandler.S2C_DieHandler);
-        _onRecv.Add((ushort)MsgId.S2CConnected, MakePacket<S2C_Connected>);
-        _handler.Add((ushort)MsgId.S2CConnected, PacketHandler.S2C_ConnectedHandler);
-        _onRecv.Add((ushort)MsgId.S2CLogin, MakePacket<S2C_Login>);
-        _handler.Add((ushort)MsgId.S2CLogin, PacketHandler.S2C_LoginHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

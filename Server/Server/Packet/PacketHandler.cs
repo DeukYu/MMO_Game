@@ -19,40 +19,30 @@ internal class PacketHandler
         C2S_Login Req_LoginPacket = (C2S_Login)packet;
         if (Req_LoginPacket == null) return;
         ClientSession clientSession = (ClientSession)session;
-        if(clientSession == null) return;
+        if (clientSession == null) return;
 
-        Console.WriteLine($"UniqueId({Req_LoginPacket.UniqueId})");
-
-        // TODO : 보안 체크
-
-        // TODO : Problem
-        using (AppDbContext db = new AppDbContext())
-        {
-            AccountDb findAccount = db.Accounts
-                .Where(a => a.AccountName == Req_LoginPacket.UniqueId).FirstOrDefault();
-
-            if (findAccount != null)
-            {
-                S2C_Login res = new S2C_Login() { BSuccess = true };
-                clientSession.Send(res);
-            }
-            else
-            {
-                AccountDb newAccount = new AccountDb() { AccountName = Req_LoginPacket.UniqueId };
-                db.Accounts.Add(newAccount);
-                db.SaveChanges();
-
-                S2C_Login res = new S2C_Login() { BSuccess = true };
-                clientSession.Send(res);
-            }
-        }
+        clientSession.HandleLogin(Req_LoginPacket);
+    }
+    public static void C2S_CreatePlayerHandler(PacketSession session, IMessage packet)
+    {
+        C2S_CreatePlayer Req_CreatePlayerPkt = (C2S_CreatePlayer)packet;
+        if (Req_CreatePlayerPkt == null) return;
+        ClientSession? clientSession = session as ClientSession;
+        if (clientSession == null) return;
+    }
+    public static void C2S_EnterGameHandler(PacketSession session, IMessage packet)
+    {
+        C2S_EnterGame Req_EnterGamePkt = (C2S_EnterGame)packet;
+        if (Req_EnterGamePkt == null) return;
+        ClientSession? clientSession = session as ClientSession;
+        if (clientSession == null) return;
     }
     public static void C2S_MoveHandler(PacketSession session, IMessage packet)
     {
         C2S_Move Req_MovePacket = (C2S_Move)packet;
         if (Req_MovePacket == null) return;
         ClientSession? clientSession = session as ClientSession;
-        if(clientSession == null) return;
+        if (clientSession == null) return;
 
         Player? player = clientSession.MyPlayer;
         if (player == null) return;
@@ -65,9 +55,9 @@ internal class PacketHandler
     public static void C2S_AttackHandler(PacketSession session, IMessage packet)
     {
         C2S_Attack Req_AttackPacket = (C2S_Attack)packet;
-        if(Req_AttackPacket == null) return;
+        if (Req_AttackPacket == null) return;
         ClientSession clientSession = session as ClientSession;
-        if(clientSession == null) return;
+        if (clientSession == null) return;
 
         Player? player = clientSession.MyPlayer;
         if (player == null)

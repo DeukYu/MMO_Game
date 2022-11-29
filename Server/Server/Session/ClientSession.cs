@@ -8,10 +8,12 @@ using System.Net;
 
 namespace Server
 {
-    public class ClientSession : PacketSession
+    public partial class ClientSession : PacketSession
     {
+        public PlayerServerState ServerState { get; private set; } = PlayerServerState.ServerStateLogin; 
         public Player? MyPlayer { get; set; }
         public int SessionId { get; set; }
+        #region Network 
         public void Send(IMessage packet)
         {
             string msgName = packet.Descriptor.Name.Replace("_", string.Empty);
@@ -70,5 +72,6 @@ namespace Server
         {
             //Console.WriteLine($"Transferred byte : {numOfBytes}");
         }
+        #endregion
     }
 }

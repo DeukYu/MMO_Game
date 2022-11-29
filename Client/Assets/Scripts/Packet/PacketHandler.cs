@@ -7,6 +7,19 @@ using UnityEngine;
 
 class PacketHandler
 {
+    public static void S2C_ConnectedHandler(PacketSession session, IMessage packet)
+    {
+        Debug.Log("S2C_ConnectedHandler");
+        C2S_Login loginPacket = new C2S_Login();
+        loginPacket.UniqueId = SystemInfo.deviceUniqueIdentifier;
+        Managers.Network.Send(loginPacket);
+    }
+    public static void S2C_LoginHandler(PacketSession session, IMessage packet)
+    {
+        System.Console.WriteLine("S2C_LoginHandler");
+        S2C_Login loginPacket = (S2C_Login)packet;
+        Debug.Log($"LoginOk({loginPacket.BSuccess})");
+    }
     public static void S2C_EnterGameHandler(PacketSession session, IMessage packet)
     {
         S2C_EnterGame enterGamePacket = packet as S2C_EnterGame;
@@ -107,19 +120,5 @@ class PacketHandler
 
         cc.Hp = 0;
         cc.OnDead();
-    }
-    public static void S2C_ConnectedHandler(PacketSession session, IMessage packet)
-    {
-        Debug.Log("S2C_ConnectedHandler");
-        C2S_Login loginPacket = new C2S_Login();
-        loginPacket.UniqueId = SystemInfo.deviceUniqueIdentifier;
-
-        Managers.Network.Send(loginPacket);
-    }
-    public static void S2C_LoginHandler(PacketSession session, IMessage packet)
-    {
-        System.Console.WriteLine("S2C_LoginHandler");
-        S2C_Login loginPacket = (S2C_Login)packet;
-        Debug.Log($"LoginOk({loginPacket.LoginOK})");
     }
 }

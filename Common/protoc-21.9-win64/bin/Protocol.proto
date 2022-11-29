@@ -5,21 +5,21 @@ import "google/protobuf/timestamp.proto";
 option csharp_namespace = "Google.Protobuf.Protocol";
 
 enum MsgId {
-  S2C_ENTER_GAME = 0;
-  S2C_LEAVE_GAME = 1;
-  S2C_SPAWN = 2;
-  S2C_DESPAWN = 3;
-  C2S_MOVE = 4;
-  S2C_MOVE = 5;
-  C2S_ATTACK = 6;
-  S2C_ATTACK = 7;
-  C2S_SKILL = 8;
-  S2C_SKILL = 9;
-  S2C_CHANGE_HP = 10;
-  S2C_DIE = 11;
-  S2C_CONNECTED = 12;
-  C2S_LOGIN = 13;
-  S2C_LOGIN = 14;
+  S2C_CONNECTED = 0;
+  C2S_LOGIN = 1;
+  S2C_LOGIN = 2;
+  S2C_ENTER_GAME = 3;
+  S2C_LEAVE_GAME = 4;
+  S2C_SPAWN = 5;
+  S2C_DESPAWN = 6;
+  C2S_MOVE = 7;
+  S2C_MOVE = 8;
+  C2S_ATTACK = 9;
+  S2C_ATTACK = 10;
+  C2S_SKILL = 11;
+  S2C_SKILL = 12;
+  S2C_CHANGE_HP = 13;
+  S2C_DIE = 14;
 }
 
 enum CreatureState{
@@ -78,6 +78,18 @@ message SkillInfo{
 	int32 skillId = 1;
 }
 
+message S2C_Connected{
+
+}
+
+message C2S_Login{
+	string uniqueId = 1;
+}
+
+message S2C_Login{
+	bool bSuccess = 1;
+}
+
 message S2C_EnterGame {
 	ObjectInfo	player = 1;
 }
@@ -122,18 +134,6 @@ message S2C_ChangeHp{
 message S2C_Die{
 	int32 objectId = 1;
 	int32 attackerId = 2;
-}
-
-message S2C_Connected{
-
-}
-
-message C2S_Login{
-	string uniqueId = 1;
-}
-
-message S2C_Login{
-	int32 loginOK = 1;
 }
 
 message S2C_Skill{

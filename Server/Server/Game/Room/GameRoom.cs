@@ -17,7 +17,6 @@ namespace Server.Game
         Dictionary<int, Player> _players = new Dictionary<int, Player>();
         Dictionary<int, Monster> _monsters = new Dictionary<int, Monster>();
         Dictionary<int, Projectile> _projectile = new Dictionary<int, Projectile>();
-
         public Map Map { get; private set; } = new Map();
         public void Init(int mapId)
         {
@@ -38,7 +37,6 @@ namespace Server.Game
             {
                 projectile.Update();
             }
-
             Flush();
         }
         public void EnterGame(GameObject gameObject)
@@ -57,25 +55,27 @@ namespace Server.Game
                 Map.ApplyMove(player, new Vector2Int(player.CellPos.x, player.CellPos.y));
                 // 본인
                 {
-                    S2C_EnterGame enterPkt = new S2C_EnterGame();
-                    enterPkt.Player = player.Info;
-                    player.Session.Send(enterPkt);
+                    S2C_EnterGame Res_EnterPkt = new S2C_EnterGame();
+                    Res_EnterPkt.Player = player.Info;
+                    if (player.Session != null)
+                        player.Session.Send(Res_EnterPkt);
 
-                    S2C_Spawn spawnPkt = new S2C_Spawn();
+                    S2C_Spawn Res_SpawnPkt = new S2C_Spawn();
                     foreach (Player p in _players.Values)
                     {
                         if (player != p)
-                            spawnPkt.Objects.Add(p.Info);
+                            Res_SpawnPkt.Objects.Add(p.Info);
                     }
                     foreach (Monster m in _monsters.Values)
                     {
-                        spawnPkt.Objects.Add(m.Info);
+                        Res_SpawnPkt.Objects.Add(m.Info);
                     }
                     foreach (Projectile p in _projectile.Values)
                     {
-                        spawnPkt.Objects.Add(p.Info);
+                        Res_SpawnPkt.Objects.Add(p.Info);
                     }
-                    player.Session.Send(spawnPkt);
+                    if (player.Session != null)
+                        player.Session.Send(Res_SpawnPkt);
                 }
             }
             else if (type == GameObjectType.Monster)
@@ -94,19 +94,19 @@ namespace Server.Game
             }
             // 타인
             {
-                S2C_Spawn spawnPkt = new S2C_Spawn();
-                spawnPkt.Objects.Add(gameObject.Info);
+                S2C_Spawn Res_SpawnPkt = new S2C_Spawn();
+                Res_SpawnPkt.Objects.Add(gameObject.Info);
                 foreach (Player p in _players.Values)
                 {
                     if (p.Id != gameObject.Id)
-                        p.Session.Send(spawnPkt);
+                        if (p.Session != null)
+                            p.Session.Send(Res_SpawnPkt);
                 }
             }
         }
         public void LeaveGame(int objectId)
         {
             GameObjectType type = ObjectManager.GetObjectTypeById(objectId);
-
             if (type == GameObjectType.Player)
             {
                 Player? player = null;
@@ -118,8 +118,9 @@ namespace Server.Game
 
                 // 본인
                 {
-                    S2C_LeaveGame leavePkt = new S2C_LeaveGame();
-                    player.Session.Send(leavePkt);
+                    S2C_LeaveGame Res_LeavePkt = new S2C_LeaveGame();
+                    if (player.Session != null)
+                        player.Session.Send(Res_LeavePkt);
                 }
             }
             else if (type == GameObjectType.Monster)
@@ -142,12 +143,13 @@ namespace Server.Game
 
             // 타인
             {
-                S2C_Despawn despawnPkt = new S2C_Despawn();
-                despawnPkt.ObjectIds.Add(objectId);
+                S2C_Despawn Res_DespawnPkt = new S2C_Despawn();
+                Res_DespawnPkt.ObjectIds.Add(objectId);
                 foreach (Player p in _players.Values)
                 {
                     if (p.Id != objectId)
-                        p.Session.Send(despawnPkt);
+                        if (p.Session != null)
+                            p.Session.Send(Res_DespawnPkt);
                 }
             }
         }
@@ -171,11 +173,10 @@ namespace Server.Game
             Map.ApplyMove(player, new Vector2Int(movePosInfo.PosX, movePosInfo.PosY));
 
             // 다른 플레이에게 알려준다.
-            S2C_Move res = new S2C_Move();
-            res.ObjectId = player.Info.ObjectId;
-            res.PosInfo = movePacket.PosInfo;
-
-            Broadcast(res);
+            S2C_Move Res_MovePkt = new S2C_Move();
+            Res_MovePkt.ObjectId = player.Info.ObjectId;
+            Res_MovePkt.PosInfo = movePacket.PosInfo;
+            Broadcast(Res_MovePkt);
         }
         public void HandleAttack(Player player, C2S_Attack attackPacket)
         {
@@ -187,9 +188,9 @@ namespace Server.Game
                 return;
 
             info.PosInfo.State = CreatureState.Attack;
-            S2C_Attack res = new S2C_Attack() { };
-            res.ObjectId = info.ObjectId;
-            Broadcast(res);
+            S2C_Attack Res_AttackPkt = new S2C_Attack() { };
+            Res_AttackPkt.ObjectId = info.ObjectId;
+            Broadcast(Res_AttackPkt);
 
             // 데미지 판정
             Vector2Int attackPos = player.GetFrontCellPos(info.PosInfo.MoveDir);

@@ -40,7 +40,7 @@ namespace Server
             // TODO
             while (true)
             {
-                Thread.Sleep(100);
+                DbTransaction.Instance.Flush();
             }
         }
     }

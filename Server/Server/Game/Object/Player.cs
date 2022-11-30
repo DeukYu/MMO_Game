@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Google.Protobuf.Protocol;
+using Microsoft.EntityFrameworkCore;
 using Server.DB;
 
 namespace Server.Game
@@ -27,13 +28,7 @@ namespace Server.Game
         }
         public void OnLeaveGame()
         {
-            // DB 연동
-            using (AppDbContext db = new AppDbContext())
-            {
-                PlayerDb playerDb = db.Players.Find(PlayerDbId);
-                playerDb.Hp = StatInfo.Hp;
-                db.SaveChanges();
-            }
+            DbTransaction.SavePlayerStatus_AllInOne_Step1(this, Room);
         }
     }
 }

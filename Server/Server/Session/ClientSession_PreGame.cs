@@ -59,7 +59,8 @@ namespace Server
                 {
                     AccountDb newAccount = new AccountDb() { AccountName = loginPacket.UniqueId };
                     db.Accounts.Add(newAccount);
-                    db.SaveChanges();
+                    if (db.SaveChangesEx() == false)
+                        return;
                     AccountDbId = newAccount.AccountDbId;
 
                     S2C_Login res = new S2C_Login() { BSuccess = true };
@@ -122,7 +123,8 @@ namespace Server
                     };
 
                     db.Players.Add(newPlayerDb);
-                    db.SaveChanges();   // TODO : ExceptionHandling
+                    if (db.SaveChangesEx() == false)
+                        return;
 
                     // 메모리에 추가
                     LobbyPlayerInfo lobbyPlayer = new LobbyPlayerInfo()

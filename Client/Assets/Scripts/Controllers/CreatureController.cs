@@ -18,6 +18,7 @@ public class CreatureController : BaseController
         get { return Stat.Hp; }
         set { base.Hp = value; UpdateHpBar(); }
     }
+
     protected void AddHpBar()
     {
         GameObject go = Managers.Resource.Instantiate("UI/HpBar", transform);

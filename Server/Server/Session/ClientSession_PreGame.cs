@@ -34,6 +34,7 @@ namespace Server
                     {
                         LobbyPlayerInfo lobbyPlayer = new LobbyPlayerInfo()
                         {
+                            PlayerDbId = playerDb.PlayerDbId,
                             Name = playerDb.PlayerName,
                             StatInfo = new StatInfo()
                             {
@@ -76,6 +77,7 @@ namespace Server
 
             MyPlayer = ObjectManager.Instance.Add<Player>();
             {
+                MyPlayer.PlayerDbId = playerInfo.PlayerDbId;
                 MyPlayer.Info.Name = playerInfo.Name;
                 MyPlayer.Info.PosInfo.State = CreatureState.Idle;
                 MyPlayer.Info.PosInfo.MoveDir = MoveDir.Down;
@@ -125,6 +127,7 @@ namespace Server
                     // 메모리에 추가
                     LobbyPlayerInfo lobbyPlayer = new LobbyPlayerInfo()
                     {
+                        PlayerDbId = newPlayerDb.PlayerDbId,
                         Name = createPlayerPacket.Name,
                         StatInfo = new StatInfo()
                         {

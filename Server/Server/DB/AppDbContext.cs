@@ -19,7 +19,7 @@ namespace Server.DB
         {
             options
                 .UseLoggerFactory(_logger)
-                .UseSqlServer(ConfigManager.Config.connectionString == null ? _connectionString : ConfigManager.Config.connectionString);
+                .UseSqlServer(_connectionString/*ConfigManager.Config.connectionString == null ? _connectionString : ConfigManager.Config.connectionString*/);
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {

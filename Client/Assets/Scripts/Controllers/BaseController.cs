@@ -15,7 +15,9 @@ public class BaseController : MonoBehaviour
             if (_stat.Equals(value))
                 return;
             _stat.Hp = value.Hp;
+            _stat.Mp = value.Mp;
             _stat.MaxHp = value.MaxHp;
+            _stat.MaxMp = value.MaxMp;
             _stat.Speed = value.Speed;
         }
     }
@@ -30,6 +32,14 @@ public class BaseController : MonoBehaviour
         set
         {
             Stat.Hp = value;
+        }
+    }
+    public virtual int Mp
+    {
+        get { return Stat.Mp; }
+        set
+        {
+            Stat.Mp = value;
         }
     }
     protected bool _updated = false;

@@ -19,6 +19,11 @@ namespace Server.Game
         public ObjectInfo Info { get; set; } = new ObjectInfo();
         public PositionInfo PosInfo { get; private set; } = new PositionInfo();
         public StatInfo StatInfo { get; private set; } = new StatInfo();
+        public float AtkSpeed
+        {
+            get { return StatInfo.AtkSpeed; }
+            set { StatInfo.AtkSpeed = value; }
+        }
         public float Speed
         {
             get { return StatInfo.Speed; }

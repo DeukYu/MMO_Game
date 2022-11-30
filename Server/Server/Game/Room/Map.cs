@@ -114,7 +114,7 @@ namespace Server.Game
             if (gameObject.Room.Map != null)
                 return false;
 
-            PositionInfo posInfo = gameObject.Info.PosInfo;
+            PositionInfo posInfo = gameObject.PosInfo;
             if (CanGo(dest, true) == false)
                 return false;
 

@@ -3,23 +3,29 @@
     {
       "level": "1",
       "maxHp": "200",
-      "attack": "20",
-      "speed":  "10.0",
-      "totalExp": "0"
+      "maxMp": "50",
+      "attack": "5",
+      "atkSpeed": "0.5",
+      "speed": "5.0",
+      "totalExp": "5"
     },
     {
       "level": "2",
       "maxHp": "250",
-      "attack": "25",
-      "speed": "10.0",
+      "maxMp": "100",
+      "attack": "7",
+      "atkSpeed": "0.5",
+      "speed": "5.0",
       "totalExp": "10"
     },
     {
       "level": "3",
       "maxHp": "300",
-      "attack": "30",
-      "speed": "10.0",
-      "totalExp": "20"
+      "maxMp": "150",
+      "attack": "10",
+      "atkSpeed": "0.5",
+      "speed": "5.0",
+      "totalExp": "15"
     }
   ]
 }

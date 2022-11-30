@@ -180,12 +180,10 @@ namespace Server.Game
         }
         public void HandleAttack(Player player, C2S_Attack attackPacket)
         {
-            if (player == null)
-                return;
+            if (player == null) return;
 
             ObjectInfo? info = player.Info;
-            if (info.PosInfo.State != CreatureState.Idle)
-                return;
+            if (info.PosInfo.State != CreatureState.Idle) return;
 
             info.PosInfo.State = CreatureState.Attack;
             S2C_Attack Res_AttackPkt = new S2C_Attack() { };
@@ -245,7 +243,7 @@ namespace Server.Game
                     break;
             }
         }
-        public Player FindPlayer(Func<GameObject, bool> condition)
+        public Player? FindPlayer(Func<GameObject, bool> condition)
         {
             foreach (Player player in _players.Values)
             {

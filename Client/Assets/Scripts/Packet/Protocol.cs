@@ -32,50 +32,51 @@ namespace Google.Protobuf.Protocol {
             "SW5mbxgEIAEoCzISLlByb3RvY29sLlN0YXRJbmZvInYKDFBvc2l0aW9uSW5m",
             "bxImCgVzdGF0ZRgBIAEoDjIXLlByb3RvY29sLkNyZWF0dXJlU3RhdGUSIgoH",
             "bW92ZURpchgCIAEoDjIRLlByb3RvY29sLk1vdmVEaXISDAoEcG9zWBgDIAEo",
-            "BRIMCgRwb3NZGAQgASgFImUKCFN0YXRJbmZvEg0KBWxldmVsGAEgASgFEgoK",
-            "AmhwGAIgASgFEg0KBW1heEhwGAMgASgFEg4KBmF0dGFjaxgEIAEoBRINCgVz",
-            "cGVlZBgFIAEoAhIQCgh0b3RhbEV4cBgGIAEoBSIcCglTa2lsbEluZm8SDwoH",
-            "c2tpbGxJZBgBIAEoBSIPCg1TMkNfQ29ubmVjdGVkIh0KCUMyU19Mb2dpbhIQ",
-            "Cgh1bmlxdWVJZBgBIAEoCSJJCglTMkNfTG9naW4SEAoIYlN1Y2Nlc3MYASAB",
-            "KAgSKgoHcGxheWVycxgCIAMoCzIZLlByb3RvY29sLkxvYmJ5UGxheWVySW5m",
-            "byIgChBDMlNfQ3JlYXRlUGxheWVyEgwKBG5hbWUYASABKAkiPQoQUzJDX0Ny",
-            "ZWF0ZVBsYXllchIpCgZwbGF5ZXIYASABKAsyGS5Qcm90b2NvbC5Mb2JieVBs",
-            "YXllckluZm8iHQoNQzJTX0VudGVyR2FtZRIMCgRuYW1lGAEgASgJIjUKDVMy",
-            "Q19FbnRlckdhbWUSJAoGcGxheWVyGAEgASgLMhQuUHJvdG9jb2wuT2JqZWN0",
-            "SW5mbyIPCg1TMkNfTGVhdmVHYW1lIjIKCVMyQ19TcGF3bhIlCgdvYmplY3Rz",
-            "GAEgAygLMhQuUHJvdG9jb2wuT2JqZWN0SW5mbyIgCgtTMkNfRGVzcGF3bhIR",
-            "CglvYmplY3RJZHMYASADKAUiMwoIQzJTX01vdmUSJwoHcG9zSW5mbxgBIAEo",
-            "CzIWLlByb3RvY29sLlBvc2l0aW9uSW5mbyJFCghTMkNfTW92ZRIQCghvYmpl",
-            "Y3RJZBgBIAEoBRInCgdwb3NJbmZvGAIgASgLMhYuUHJvdG9jb2wuUG9zaXRp",
-            "b25JbmZvIgwKCkMyU19BdHRhY2siHgoKUzJDX0F0dGFjaxIQCghvYmplY3RJ",
-            "ZBgBIAEoBSIuCglDMlNfU2tpbGwSIQoEaW5mbxgBIAEoCzITLlByb3RvY29s",
-            "LlNraWxsSW5mbyIsCgxTMkNfQ2hhbmdlSHASEAoIb2JqZWN0SWQYASABKAUS",
-            "CgoCaHAYAiABKAUiLwoHUzJDX0RpZRIQCghvYmplY3RJZBgBIAEoBRISCgph",
-            "dHRhY2tlcklkGAIgASgFIkAKCVMyQ19Ta2lsbBIQCghvYmplY3RJZBgBIAEo",
-            "BRIhCgRpbmZvGAIgASgLMhMuUHJvdG9jb2wuU2tpbGxJbmZvKrwCCgVNc2dJ",
-            "ZBIRCg1TMkNfQ09OTkVDVEVEEAASDQoJQzJTX0xPR0lOEAESDQoJUzJDX0xP",
-            "R0lOEAISFQoRQzJTX0NSRUFURV9QTEFZRVIQAxIVChFTMkNfQ1JFQVRFX1BM",
-            "QVlFUhAEEhIKDkMyU19FTlRFUl9HQU1FEAUSEgoOUzJDX0VOVEVSX0dBTUUQ",
-            "BhISCg5TMkNfTEVBVkVfR0FNRRAHEg0KCVMyQ19TUEFXThAIEg8KC1MyQ19E",
-            "RVNQQVdOEAkSDAoIQzJTX01PVkUQChIMCghTMkNfTU9WRRALEg4KCkMyU19B",
-            "VFRBQ0sQDBIOCgpTMkNfQVRUQUNLEA0SDQoJQzJTX1NLSUxMEA4SDQoJUzJD",
-            "X1NLSUxMEA8SEQoNUzJDX0NIQU5HRV9IUBAQEgsKB1MyQ19ESUUQESpGCg1D",
-            "cmVhdHVyZVN0YXRlEggKBElETEUQABIKCgZNT1ZJTkcQARIKCgZBVFRBQ0sQ",
-            "AhIJCgVTS0lMTBADEggKBERFQUQQBCowCgdNb3ZlRGlyEgYKAlVQEAASCAoE",
-            "RE9XThABEggKBExFRlQQAhIJCgVSSUdIVBADKkwKDkdhbWVPYmplY3RUeXBl",
-            "EggKBE5PTkUQABIKCgZQTEFZRVIQARILCgdNT05TVEVSEAISBwoDTlBDEAMS",
-            "DgoKUFJPSkVDVElMRRAEKkEKCVNraWxsVHlwZRIOCgpTS0lMTF9OT05FEAAS",
-            "DgoKU0tJTExfQVVUTxABEhQKEFNLSUxMX1BST0pFQ1RJTEUQAipaChFQbGF5",
-            "ZXJTZXJ2ZXJTdGF0ZRIWChJTRVJWRVJfU1RBVEVfTE9HSU4QABIWChJTRVJW",
-            "RVJfU1RBVEVfTE9CQlkQARIVChFTRVJWRVJfU1RBVEVfR0FNRRACQhuqAhhH",
-            "b29nbGUuUHJvdG9idWYuUHJvdG9jb2xiBnByb3RvMw=="));
+            "BRIMCgRwb3NZGAQgASgFIpIBCghTdGF0SW5mbxINCgVsZXZlbBgBIAEoBRIK",
+            "CgJocBgCIAEoBRINCgVtYXhIcBgDIAEoBRIKCgJtcBgEIAEoBRINCgVtYXhN",
+            "cBgFIAEoBRIOCgZhdHRhY2sYBiABKAUSEAoIYXRrU3BlZWQYByABKAISDQoF",
+            "c3BlZWQYCCABKAISEAoIdG90YWxFeHAYCSABKAUiHAoJU2tpbGxJbmZvEg8K",
+            "B3NraWxsSWQYASABKAUiDwoNUzJDX0Nvbm5lY3RlZCIdCglDMlNfTG9naW4S",
+            "EAoIdW5pcXVlSWQYASABKAkiSQoJUzJDX0xvZ2luEhAKCGJTdWNjZXNzGAEg",
+            "ASgIEioKB3BsYXllcnMYAiADKAsyGS5Qcm90b2NvbC5Mb2JieVBsYXllcklu",
+            "Zm8iIAoQQzJTX0NyZWF0ZVBsYXllchIMCgRuYW1lGAEgASgJIj0KEFMyQ19D",
+            "cmVhdGVQbGF5ZXISKQoGcGxheWVyGAEgASgLMhkuUHJvdG9jb2wuTG9iYnlQ",
+            "bGF5ZXJJbmZvIh0KDUMyU19FbnRlckdhbWUSDAoEbmFtZRgBIAEoCSI1Cg1T",
+            "MkNfRW50ZXJHYW1lEiQKBnBsYXllchgBIAEoCzIULlByb3RvY29sLk9iamVj",
+            "dEluZm8iDwoNUzJDX0xlYXZlR2FtZSIyCglTMkNfU3Bhd24SJQoHb2JqZWN0",
+            "cxgBIAMoCzIULlByb3RvY29sLk9iamVjdEluZm8iIAoLUzJDX0Rlc3Bhd24S",
+            "EQoJb2JqZWN0SWRzGAEgAygFIjMKCEMyU19Nb3ZlEicKB3Bvc0luZm8YASAB",
+            "KAsyFi5Qcm90b2NvbC5Qb3NpdGlvbkluZm8iRQoIUzJDX01vdmUSEAoIb2Jq",
+            "ZWN0SWQYASABKAUSJwoHcG9zSW5mbxgCIAEoCzIWLlByb3RvY29sLlBvc2l0",
+            "aW9uSW5mbyIMCgpDMlNfQXR0YWNrIh4KClMyQ19BdHRhY2sSEAoIb2JqZWN0",
+            "SWQYASABKAUiLgoJQzJTX1NraWxsEiEKBGluZm8YASABKAsyEy5Qcm90b2Nv",
+            "bC5Ta2lsbEluZm8iLAoMUzJDX0NoYW5nZUhwEhAKCG9iamVjdElkGAEgASgF",
+            "EgoKAmhwGAIgASgFIi8KB1MyQ19EaWUSEAoIb2JqZWN0SWQYASABKAUSEgoK",
+            "YXR0YWNrZXJJZBgCIAEoBSJACglTMkNfU2tpbGwSEAoIb2JqZWN0SWQYASAB",
+            "KAUSIQoEaW5mbxgCIAEoCzITLlByb3RvY29sLlNraWxsSW5mbyq8AgoFTXNn",
+            "SWQSEQoNUzJDX0NPTk5FQ1RFRBAAEg0KCUMyU19MT0dJThABEg0KCVMyQ19M",
+            "T0dJThACEhUKEUMyU19DUkVBVEVfUExBWUVSEAMSFQoRUzJDX0NSRUFURV9Q",
+            "TEFZRVIQBBISCg5DMlNfRU5URVJfR0FNRRAFEhIKDlMyQ19FTlRFUl9HQU1F",
+            "EAYSEgoOUzJDX0xFQVZFX0dBTUUQBxINCglTMkNfU1BBV04QCBIPCgtTMkNf",
+            "REVTUEFXThAJEgwKCEMyU19NT1ZFEAoSDAoIUzJDX01PVkUQCxIOCgpDMlNf",
+            "QVRUQUNLEAwSDgoKUzJDX0FUVEFDSxANEg0KCUMyU19TS0lMTBAOEg0KCVMy",
+            "Q19TS0lMTBAPEhEKDVMyQ19DSEFOR0VfSFAQEBILCgdTMkNfRElFEBEqRgoN",
+            "Q3JlYXR1cmVTdGF0ZRIICgRJRExFEAASCgoGTU9WSU5HEAESCgoGQVRUQUNL",
+            "EAISCQoFU0tJTEwQAxIICgRERUFEEAQqMAoHTW92ZURpchIGCgJVUBAAEggK",
+            "BERPV04QARIICgRMRUZUEAISCQoFUklHSFQQAypMCg5HYW1lT2JqZWN0VHlw",
+            "ZRIICgROT05FEAASCgoGUExBWUVSEAESCwoHTU9OU1RFUhACEgcKA05QQxAD",
+            "Eg4KClBST0pFQ1RJTEUQBCpBCglTa2lsbFR5cGUSDgoKU0tJTExfTk9ORRAA",
+            "Eg4KClNLSUxMX0FVVE8QARIUChBTS0lMTF9QUk9KRUNUSUxFEAIqWgoRUGxh",
+            "eWVyU2VydmVyU3RhdGUSFgoSU0VSVkVSX1NUQVRFX0xPR0lOEAASFgoSU0VS",
+            "VkVSX1NUQVRFX0xPQkJZEAESFQoRU0VSVkVSX1NUQVRFX0dBTUUQAkIbqgIY",
+            "R29vZ2xlLlByb3RvYnVmLlByb3RvY29sYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Google.Protobuf.Protocol.MsgId), typeof(global::Google.Protobuf.Protocol.CreatureState), typeof(global::Google.Protobuf.Protocol.MoveDir), typeof(global::Google.Protobuf.Protocol.GameObjectType), typeof(global::Google.Protobuf.Protocol.SkillType), typeof(global::Google.Protobuf.Protocol.PlayerServerState), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.LobbyPlayerInfo), global::Google.Protobuf.Protocol.LobbyPlayerInfo.Parser, new[]{ "Name", "StatInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.ObjectInfo), global::Google.Protobuf.Protocol.ObjectInfo.Parser, new[]{ "ObjectId", "Name", "PosInfo", "StatInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.PositionInfo), global::Google.Protobuf.Protocol.PositionInfo.Parser, new[]{ "State", "MoveDir", "PosX", "PosY" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.StatInfo), global::Google.Protobuf.Protocol.StatInfo.Parser, new[]{ "Level", "Hp", "MaxHp", "Attack", "Speed", "TotalExp" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.StatInfo), global::Google.Protobuf.Protocol.StatInfo.Parser, new[]{ "Level", "Hp", "MaxHp", "Mp", "MaxMp", "Attack", "AtkSpeed", "Speed", "TotalExp" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.SkillInfo), global::Google.Protobuf.Protocol.SkillInfo.Parser, new[]{ "SkillId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.S2C_Connected), global::Google.Protobuf.Protocol.S2C_Connected.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Google.Protobuf.Protocol.C2S_Login), global::Google.Protobuf.Protocol.C2S_Login.Parser, new[]{ "UniqueId" }, null, null, null, null),
@@ -1050,7 +1051,10 @@ namespace Google.Protobuf.Protocol {
       level_ = other.level_;
       hp_ = other.hp_;
       maxHp_ = other.maxHp_;
+      mp_ = other.mp_;
+      maxMp_ = other.maxMp_;
       attack_ = other.attack_;
+      atkSpeed_ = other.atkSpeed_;
       speed_ = other.speed_;
       totalExp_ = other.totalExp_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -1098,8 +1102,32 @@ namespace Google.Protobuf.Protocol {
       }
     }
 
+    /// <summary>Field number for the "mp" field.</summary>
+    public const int MpFieldNumber = 4;
+    private int mp_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Mp {
+      get { return mp_; }
+      set {
+        mp_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "maxMp" field.</summary>
+    public const int MaxMpFieldNumber = 5;
+    private int maxMp_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int MaxMp {
+      get { return maxMp_; }
+      set {
+        maxMp_ = value;
+      }
+    }
+
     /// <summary>Field number for the "attack" field.</summary>
-    public const int AttackFieldNumber = 4;
+    public const int AttackFieldNumber = 6;
     private int attack_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1110,8 +1138,20 @@ namespace Google.Protobuf.Protocol {
       }
     }
 
+    /// <summary>Field number for the "atkSpeed" field.</summary>
+    public const int AtkSpeedFieldNumber = 7;
+    private float atkSpeed_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float AtkSpeed {
+      get { return atkSpeed_; }
+      set {
+        atkSpeed_ = value;
+      }
+    }
+
     /// <summary>Field number for the "speed" field.</summary>
-    public const int SpeedFieldNumber = 5;
+    public const int SpeedFieldNumber = 8;
     private float speed_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1123,7 +1163,7 @@ namespace Google.Protobuf.Protocol {
     }
 
     /// <summary>Field number for the "totalExp" field.</summary>
-    public const int TotalExpFieldNumber = 6;
+    public const int TotalExpFieldNumber = 9;
     private int totalExp_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1152,7 +1192,10 @@ namespace Google.Protobuf.Protocol {
       if (Level != other.Level) return false;
       if (Hp != other.Hp) return false;
       if (MaxHp != other.MaxHp) return false;
+      if (Mp != other.Mp) return false;
+      if (MaxMp != other.MaxMp) return false;
       if (Attack != other.Attack) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(AtkSpeed, other.AtkSpeed)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Speed, other.Speed)) return false;
       if (TotalExp != other.TotalExp) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -1165,7 +1208,10 @@ namespace Google.Protobuf.Protocol {
       if (Level != 0) hash ^= Level.GetHashCode();
       if (Hp != 0) hash ^= Hp.GetHashCode();
       if (MaxHp != 0) hash ^= MaxHp.GetHashCode();
+      if (Mp != 0) hash ^= Mp.GetHashCode();
+      if (MaxMp != 0) hash ^= MaxMp.GetHashCode();
       if (Attack != 0) hash ^= Attack.GetHashCode();
+      if (AtkSpeed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(AtkSpeed);
       if (Speed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Speed);
       if (TotalExp != 0) hash ^= TotalExp.GetHashCode();
       if (_unknownFields != null) {
@@ -1198,16 +1244,28 @@ namespace Google.Protobuf.Protocol {
         output.WriteRawTag(24);
         output.WriteInt32(MaxHp);
       }
-      if (Attack != 0) {
+      if (Mp != 0) {
         output.WriteRawTag(32);
+        output.WriteInt32(Mp);
+      }
+      if (MaxMp != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(MaxMp);
+      }
+      if (Attack != 0) {
+        output.WriteRawTag(48);
         output.WriteInt32(Attack);
       }
+      if (AtkSpeed != 0F) {
+        output.WriteRawTag(61);
+        output.WriteFloat(AtkSpeed);
+      }
       if (Speed != 0F) {
-        output.WriteRawTag(45);
+        output.WriteRawTag(69);
         output.WriteFloat(Speed);
       }
       if (TotalExp != 0) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(72);
         output.WriteInt32(TotalExp);
       }
       if (_unknownFields != null) {
@@ -1232,16 +1290,28 @@ namespace Google.Protobuf.Protocol {
         output.WriteRawTag(24);
         output.WriteInt32(MaxHp);
       }
-      if (Attack != 0) {
+      if (Mp != 0) {
         output.WriteRawTag(32);
+        output.WriteInt32(Mp);
+      }
+      if (MaxMp != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(MaxMp);
+      }
+      if (Attack != 0) {
+        output.WriteRawTag(48);
         output.WriteInt32(Attack);
       }
+      if (AtkSpeed != 0F) {
+        output.WriteRawTag(61);
+        output.WriteFloat(AtkSpeed);
+      }
       if (Speed != 0F) {
-        output.WriteRawTag(45);
+        output.WriteRawTag(69);
         output.WriteFloat(Speed);
       }
       if (TotalExp != 0) {
-        output.WriteRawTag(48);
+        output.WriteRawTag(72);
         output.WriteInt32(TotalExp);
       }
       if (_unknownFields != null) {
@@ -1263,8 +1333,17 @@ namespace Google.Protobuf.Protocol {
       if (MaxHp != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxHp);
       }
+      if (Mp != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Mp);
+      }
+      if (MaxMp != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MaxMp);
+      }
       if (Attack != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Attack);
+      }
+      if (AtkSpeed != 0F) {
+        size += 1 + 4;
       }
       if (Speed != 0F) {
         size += 1 + 4;
@@ -1293,8 +1372,17 @@ namespace Google.Protobuf.Protocol {
       if (other.MaxHp != 0) {
         MaxHp = other.MaxHp;
       }
+      if (other.Mp != 0) {
+        Mp = other.Mp;
+      }
+      if (other.MaxMp != 0) {
+        MaxMp = other.MaxMp;
+      }
       if (other.Attack != 0) {
         Attack = other.Attack;
+      }
+      if (other.AtkSpeed != 0F) {
+        AtkSpeed = other.AtkSpeed;
       }
       if (other.Speed != 0F) {
         Speed = other.Speed;
@@ -1330,14 +1418,26 @@ namespace Google.Protobuf.Protocol {
             break;
           }
           case 32: {
-            Attack = input.ReadInt32();
+            Mp = input.ReadInt32();
             break;
           }
-          case 45: {
-            Speed = input.ReadFloat();
+          case 40: {
+            MaxMp = input.ReadInt32();
             break;
           }
           case 48: {
+            Attack = input.ReadInt32();
+            break;
+          }
+          case 61: {
+            AtkSpeed = input.ReadFloat();
+            break;
+          }
+          case 69: {
+            Speed = input.ReadFloat();
+            break;
+          }
+          case 72: {
             TotalExp = input.ReadInt32();
             break;
           }
@@ -1369,14 +1469,26 @@ namespace Google.Protobuf.Protocol {
             break;
           }
           case 32: {
-            Attack = input.ReadInt32();
+            Mp = input.ReadInt32();
             break;
           }
-          case 45: {
-            Speed = input.ReadFloat();
+          case 40: {
+            MaxMp = input.ReadInt32();
             break;
           }
           case 48: {
+            Attack = input.ReadInt32();
+            break;
+          }
+          case 61: {
+            AtkSpeed = input.ReadFloat();
+            break;
+          }
+          case 69: {
+            Speed = input.ReadFloat();
+            break;
+          }
+          case 72: {
             TotalExp = input.ReadInt32();
             break;
           }

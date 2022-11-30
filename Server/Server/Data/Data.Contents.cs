@@ -18,6 +18,7 @@ namespace Server.Data
             foreach (StatInfo stat in stats)
             {
                 stat.Hp = stat.MaxHp;
+                stat.Mp = stat.MaxMp;
                 dict.Add(stat.Level, stat);
             }       
             return dict;

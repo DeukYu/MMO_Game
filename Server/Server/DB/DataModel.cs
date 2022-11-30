@@ -26,7 +26,10 @@ namespace Server.DB
         public int Level { get; set; }
         public int Hp { get; set; }
         public int MaxHp { get; set; }
+        public int Mp { get; set; }
+        public int MaxMp { get; set; }
         public int Attack { get; set; }
+        public float AtkSpeed { get; set; }
         public float Speed { get; set; }
         public int TotalExp { get; set; }
     }

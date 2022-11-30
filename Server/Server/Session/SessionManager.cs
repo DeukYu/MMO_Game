@@ -29,7 +29,7 @@ namespace Server.Session
                 return session;
             }
         }
-        public ClientSession Find(int id)
+        public ClientSession? Find(int id)
         {
             lock (_lock)
             {

@@ -10,7 +10,7 @@ namespace Server
 {
     public partial class ClientSession : PacketSession
     {
-        public PlayerServerState ServerState { get; private set; } = PlayerServerState.ServerStateLogin; 
+        public PlayerServerState ServerState { get; private set; } = PlayerServerState.ServerStateLogin;
         public Player? MyPlayer { get; set; }
         public int SessionId { get; set; }
         #region Network 
@@ -29,30 +29,8 @@ namespace Server
         {
             Console.WriteLine($"OnConnected : {endPoint}");
 
-            {
-                S2C_Connected connectedPacket = new S2C_Connected();
-                Send(connectedPacket);
-            }
-
-            // TODO : 로비에서 캐릭터 선택
-            MyPlayer = ObjectManager.Instance.Add<Player>();
-            {
-                MyPlayer.Info.Name = $"Player_{MyPlayer.Info.ObjectId}";
-                MyPlayer.Info.PosInfo.State = CreatureState.Idle;
-                MyPlayer.Info.PosInfo.MoveDir = MoveDir.Down;
-                MyPlayer.Info.PosInfo.PosX = 0;
-                MyPlayer.Info.PosInfo.PosY = 0;
-
-                StatInfo stat = null;
-                DataManager.StatDict.TryGetValue(1, out stat);
-                MyPlayer.StatInfo.MergeFrom(stat);
-
-                MyPlayer.Session = this;
-            }
-
-            // TODO : 입장 요청 들어오면 실행
-            GameRoom? room = RoomManager.Instance.Find(1);
-            room.Push(room.EnterGame, MyPlayer);
+            S2C_Connected connectedPacket = new S2C_Connected();
+            Send(connectedPacket);
         }
         public override void OnRecvPacket(ArraySegment<byte> buffer)
         {

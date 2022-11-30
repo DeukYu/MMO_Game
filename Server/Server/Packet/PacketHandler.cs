@@ -16,32 +16,35 @@ internal class PacketHandler
 {
     public static void C2S_LoginHandler(PacketSession session, IMessage packet)
     {
-        C2S_Login Req_LoginPacket = (C2S_Login)packet;
-        if (Req_LoginPacket == null) return;
+        C2S_Login Req_LoginPkt = (C2S_Login)packet;
+        if (Req_LoginPkt == null) return;
         ClientSession clientSession = (ClientSession)session;
         if (clientSession == null) return;
 
-        clientSession.HandleLogin(Req_LoginPacket);
+        clientSession.HandleLogin(Req_LoginPkt);
     }
     public static void C2S_CreatePlayerHandler(PacketSession session, IMessage packet)
     {
         C2S_CreatePlayer Req_CreatePlayerPkt = (C2S_CreatePlayer)packet;
         if (Req_CreatePlayerPkt == null) return;
-        ClientSession? clientSession = session as ClientSession;
+        ClientSession? clientSession = (ClientSession)session;
         if (clientSession == null) return;
+
+        clientSession.HandleCreatePlayer(Req_CreatePlayerPkt);
     }
     public static void C2S_EnterGameHandler(PacketSession session, IMessage packet)
     {
         C2S_EnterGame Req_EnterGamePkt = (C2S_EnterGame)packet;
         if (Req_EnterGamePkt == null) return;
-        ClientSession? clientSession = session as ClientSession;
+        ClientSession? clientSession = (ClientSession)session;
         if (clientSession == null) return;
+        clientSession.HandleEnterGame(Req_EnterGamePkt);
     }
     public static void C2S_MoveHandler(PacketSession session, IMessage packet)
     {
-        C2S_Move Req_MovePacket = (C2S_Move)packet;
-        if (Req_MovePacket == null) return;
-        ClientSession? clientSession = session as ClientSession;
+        C2S_Move Req_MovePkt = (C2S_Move)packet;
+        if (Req_MovePkt == null) return;
+        ClientSession? clientSession = (ClientSession)session;
         if (clientSession == null) return;
 
         Player? player = clientSession.MyPlayer;
@@ -50,22 +53,20 @@ internal class PacketHandler
         GameRoom? room = player.Room;
         if (room == null) return;
 
-        room.Push(room.HandleMove, player, Req_MovePacket);
+        room.Push(room.HandleMove, player, Req_MovePkt);
     }
     public static void C2S_AttackHandler(PacketSession session, IMessage packet)
     {
         C2S_Attack Req_AttackPacket = (C2S_Attack)packet;
         if (Req_AttackPacket == null) return;
-        ClientSession clientSession = session as ClientSession;
+        ClientSession? clientSession = (ClientSession)session;
         if (clientSession == null) return;
 
         Player? player = clientSession.MyPlayer;
-        if (player == null)
-            return;
+        if (player == null) return;
 
         GameRoom? room = player.Room;
-        if (room == null)
-            return;
+        if (room == null) return;
 
         room.Push(room.HandleAttack, player, Req_AttackPacket);
     }
@@ -80,7 +81,8 @@ internal class PacketHandler
         if (player == null) return;
 
         GameRoom? room = player.Room;
-        if (room != null)
-            room.Push(room.HandleSkill, player, Req_SkillPacket);
+        if (room == null) return;
+
+        room.Push(room.HandleSkill, player, Req_SkillPacket);
     }
 }

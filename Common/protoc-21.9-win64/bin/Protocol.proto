@@ -23,6 +23,7 @@ enum MsgId {
   S2C_SKILL = 15;
   S2C_CHANGE_HP = 16;
   S2C_DIE = 17;
+  S2C_ITEMLIST = 18;
 }
 
 enum CreatureState{
@@ -60,6 +61,31 @@ enum PlayerServerState{
 	SERVER_STATE_GAME = 2;
 }
 
+enum ItemType{
+	ITEM_TYPE_NONE = 0;
+	ITEM_TYPE_WEAPON = 1;
+	ITEM_TYPE_ARMOR = 2;
+	ITEM_TYPE_CONSUMABLE = 3;
+}
+
+enum WeaponType {
+	WEAPON_TYPE_NONE = 0;
+	WEAPON_TYPE_SWORD = 1;
+	WEAPON_TYPE_BOW = 2;
+}
+
+enum ArmorType{
+	ARMOR_TYPE_NONE = 0;
+	ARMOR_TYPE_HELMET = 1;
+	ARMOR_TYPE_ARMOR = 2;
+	ARMOR_TYPE_BOOTS = 3;
+}
+
+enum ConsumableType{
+	CONSUMABLE_TYPE_NONE = 0;
+	CONSUMABLE_TYPE_POTION = 1;
+}
+
 message LobbyPlayerInfo{
 	int32 playerDbId = 1;
 	string name = 2;
@@ -94,6 +120,13 @@ message StatInfo{
 
 message SkillInfo{
 	int32 skillId = 1;
+}
+
+message ItemInfo{
+	int32 itemDbId = 1;
+	int32 templateId = 2;
+	int32 count = 3;
+	int32 slot = 4;
 }
 
 message S2C_Connected{
@@ -170,4 +203,8 @@ message S2C_Die{
 message S2C_Skill{
 	int32 objectId = 1;
 	SkillInfo info = 2;
+}
+
+message S2C_ItemList{
+	repeated ItemInfo items = 1;
 }

@@ -86,6 +86,23 @@ namespace Server
                 MyPlayer.Info.PosInfo.PosY = 0;
                 MyPlayer.StatInfo.MergeFrom(playerInfo.StatInfo);
                 MyPlayer.Session = this;
+
+                S2C_ItemList itemListPacket = new S2C_ItemList();
+
+                using(AppDbContext db = new AppDbContext())
+                {
+                    List<ItemDb> items = db.Items
+                        .Where(i=>i.OwnerDbId == playerInfo.PlayerDbId)
+                        .ToList();
+
+                    foreach(ItemDb itemDb in items)
+                    {
+                        // TODO : 인벤토리
+                        ItemInfo info = new ItemInfo();
+                        itemListPacket.Items.Add(info);
+                    }
+                }
+                Send(itemListPacket);
             }
             ServerState = PlayerServerState.ServerStateGame;
 

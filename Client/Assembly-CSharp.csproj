@@ -87,6 +87,10 @@
     <Compile Include="Assets\Scripts\Packet\PacketQueue.cs" />
     <Compile Include="Assets\Scripts\Managers\Managers.cs" />
     <Compile Include="Assets\Scripts\Utils\Define.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\UI_Inventory.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\UI_Inventory_Item.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\UI_GameScene.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\UI_Scene.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Libs\System.Runtime.CompilerServices.Unsafe.dll" />

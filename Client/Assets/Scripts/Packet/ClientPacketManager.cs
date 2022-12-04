@@ -47,7 +47,7 @@ class PacketManager
         _handler.Add((ushort)MsgId.S2CChangeHp, PacketHandler.S2C_ChangeHpHandler);
         _onRecv.Add((ushort)MsgId.S2CDie, MakePacket<S2C_Die>);
         _handler.Add((ushort)MsgId.S2CDie, PacketHandler.S2C_DieHandler);
-        _onRecv.Add((ushort)MsgId.S2CItemlist, MakePacket<S2C_Itemlist>);
+        _onRecv.Add((ushort)MsgId.S2CItemlist, MakePacket<S2C_ItemList>);
         _handler.Add((ushort)MsgId.S2CItemlist, PacketHandler.S2C_ItemlistHandler);
 	}
 

@@ -97,9 +97,14 @@ namespace Server
 
                     foreach(ItemDb itemDb in items)
                     {
-                        // TODO : 인벤토리
-                        ItemInfo info = new ItemInfo();
-                        itemListPacket.Items.Add(info);
+                        Item item = Item.MakeItem(itemDb);
+                        if(item != null)
+                        {
+                            MyPlayer.Inven.Add(item);
+                            ItemInfo info = new ItemInfo();
+                            info.MergeFrom(item.Info);
+                            itemListPacket.Items.Add(info);
+                        }
                     }
                 }
                 Send(itemListPacket);

@@ -140,4 +140,13 @@ class PacketHandler
         cc.Hp = 0;
         cc.OnDead();
     }
+    public static void S2C_ItemlistHandler(PacketSession session, IMessage packet)
+    {
+        S2C_ItemList itemListPacket = (S2C_ItemList)packet;
+
+        foreach(ItemInfo item in itemListPacket.Items)
+        {
+            Debug.Log($"{item.TemplateId} : {item.Count}");
+        }
+    }
 }

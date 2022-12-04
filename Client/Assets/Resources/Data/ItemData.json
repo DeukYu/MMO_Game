@@ -12,5 +12,27 @@
       "weaponType": "Bow",
       "damage": "5"
     }
+  ],
+  "armors": [
+    {
+      "id": "100",
+      "name": "초보자의 갑옷",
+      "armorType": "Armor",
+      "defence": "10"
+    },
+    {
+      "id": "101",
+      "name": "초보자의 투구",
+      "armorType": "Helmet",
+      "damage": "5"
+    }
+  ],
+  "consumables": [
+    {
+      "id": "200",
+      "name": "HP 물량",
+      "consumableType": "Potion",
+      "damage": "10"
+    }
   ]
 }

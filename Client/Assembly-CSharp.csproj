@@ -56,11 +56,13 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\UI\Scene\UI_GameScene.cs" />
     <Compile Include="Assets\Scripts\Packet\ClientPacketManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\DataManager.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\Poolable.cs" />
     <Compile Include="Assets\Scripts\Managers\Contents\ObjectManager.cs" />
     <Compile Include="Assets\Scripts\Controllers\ArrowController.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\UI_Inventory.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\Utils\Extension.cs" />
@@ -72,6 +74,8 @@
     <Compile Include="Assets\Scripts\Controllers\BaseController.cs" />
     <Compile Include="Assets\Scripts\Packet\Protocol.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\PoolManager.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\UI_Inventory_Item.cs" />
+    <Compile Include="Assets\Scripts\UI\Scene\UI_Scene.cs" />
     <Compile Include="Assets\Scripts\Controllers\MonsterController.cs" />
     <Compile Include="Assets\Scripts\Utils\Util.cs" />
     <Compile Include="Assets\Scripts\Contents\HpBar.cs" />
@@ -87,10 +91,9 @@
     <Compile Include="Assets\Scripts\Packet\PacketQueue.cs" />
     <Compile Include="Assets\Scripts\Managers\Managers.cs" />
     <Compile Include="Assets\Scripts\Utils\Define.cs" />
-    <Compile Include="Assets\Scripts\UI\Scene\UI_Inventory.cs" />
-    <Compile Include="Assets\Scripts\UI\Scene\UI_Inventory_Item.cs" />
-    <Compile Include="Assets\Scripts\UI\Scene\UI_GameScene.cs" />
-    <Compile Include="Assets\Scripts\UI\Scene\UI_Scene.cs" />
+    <Compile Include="Assets\Scripts\UI\UI_Base.cs" />
+    <Compile Include="Assets\Scripts\UI\UI_EventHandler.cs" />
+    <Compile Include="Assets\Scripts\Managers\Core\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Libs\System.Runtime.CompilerServices.Unsafe.dll" />

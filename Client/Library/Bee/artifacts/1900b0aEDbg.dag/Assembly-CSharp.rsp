@@ -388,6 +388,7 @@
 "Assets/Scripts/ServerCore/Connector.cs"
 "Assets/Scripts/ServerCore/RecvBuffer.cs"
 "Assets/Scripts/ServerCore/Session.cs"
+"Assets/Scripts/UI/Popup/UI_Popup.cs"
 "Assets/Scripts/UI/Scene/UI_GameScene.cs"
 "Assets/Scripts/UI/Scene/UI_Inventory.cs"
 "Assets/Scripts/UI/Scene/UI_Inventory_Item.cs"

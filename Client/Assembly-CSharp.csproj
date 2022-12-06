@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Managers\Core\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\Utils\Extension.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\SceneManagerEx.cs" />
+    <Compile Include="Assets\Scripts\UI\UI_Base.cs" />
     <Compile Include="Assets\Scripts\Controllers\CreatureController.cs" />
     <Compile Include="Assets\Scripts\Packet\ServerSession.cs" />
     <Compile Include="Assets\Scripts\Managers\Contents\NetworkManager.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Assets\Scripts\ServerCore\RecvBuffer.cs" />
     <Compile Include="Assets\Scripts\ServerCore\Connector.cs" />
     <Compile Include="Assets\Scripts\Utils\PriorityQueue.cs" />
+    <Compile Include="Assets\Scripts\UI\UI_EventHandler.cs" />
     <Compile Include="Assets\Scripts\Controllers\MyPlayerController.cs" />
     <Compile Include="Assets\Scripts\Data\Data.Contents.cs" />
     <Compile Include="Assets\Scripts\Scenes\BaseScene.cs" />
@@ -90,10 +92,9 @@
     <Compile Include="Assets\Scripts\Scenes\GameScene.cs" />
     <Compile Include="Assets\Scripts\Packet\PacketQueue.cs" />
     <Compile Include="Assets\Scripts\Managers\Managers.cs" />
-    <Compile Include="Assets\Scripts\Utils\Define.cs" />
-    <Compile Include="Assets\Scripts\UI\UI_Base.cs" />
-    <Compile Include="Assets\Scripts\UI\UI_EventHandler.cs" />
     <Compile Include="Assets\Scripts\Managers\Core\UIManager.cs" />
+    <Compile Include="Assets\Scripts\Utils\Define.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup\UI_Popup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Libs\System.Runtime.CompilerServices.Unsafe.dll" />

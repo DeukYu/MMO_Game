@@ -21,9 +21,11 @@ public class Managers : MonoBehaviour
     ResourceManager _resource = new ResourceManager();
     PoolManager _pool = new PoolManager();
     SceneManagerEx _scene = new SceneManagerEx();
+    UIManager _ui = new UIManager();
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static PoolManager Pool { get { return Instance._pool; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
+    public static UIManager UI { get { return Instance._ui; } }
     #endregion
     // Start is called before the first frame update
     void Start()
@@ -59,5 +61,6 @@ public class Managers : MonoBehaviour
     {
         Pool.Clear();
         Scene.Clear();
+        UI.Clear();
     }
 }

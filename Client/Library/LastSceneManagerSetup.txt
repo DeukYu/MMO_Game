@@ -1,1 +1,5 @@
-sceneSetups: []
+sceneSetups:
+- path: Assets/UltraMare/Fantastic UI Starter Pack/Scenes/SampleScene.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0

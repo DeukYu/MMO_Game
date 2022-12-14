@@ -144,9 +144,19 @@ class PacketHandler
     {
         S2C_ItemList itemListPacket = (S2C_ItemList)packet;
 
-        foreach(ItemInfo item in itemListPacket.Items)
+        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        UI_Inventory invenUI = gameSceneUI.InvenUI;
+
+        Managers.Inven.Clear();
+        // 메모리에 아이템 정보 적용
+        foreach(ItemInfo itemInfo in itemListPacket.Items)
         {
-            Debug.Log($"{item.TemplateId} : {item.Count}");
+            Item item = Item.MakeItem(itemInfo);
+            Managers.Inven.Add(item);
+            //Debug.Log($"{item.TemplateId} : {item.Count}");
         }
+        // UI에서 표시
+        invenUI.gameObject.SetActive(true);
+        invenUI.RefreshUI();
     }
 }

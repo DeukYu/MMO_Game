@@ -1,18 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Dictionary<int, Item> Items { get; } = new Dictionary<int, Item>();
 
-    // Update is called once per frame
-    void Update()
+    public void Add(Item item)
     {
-        
+        Items.Add(item.ItemDbId, item);
+    }
+    public Item Get(int itemDbId)
+    {
+        Items.TryGetValue(itemDbId, out Item? item);
+        return item;
+    }
+    public Item Find(Func<Item, bool> condition)
+    {
+        foreach (Item item in Items.Values)
+        {
+            if (condition.Invoke(item))
+                return item;
+        }
+        return null;
+    }
+    public void Clear()
+    {
+        Items.Clear();
     }
 }

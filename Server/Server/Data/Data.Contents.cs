@@ -111,4 +111,34 @@ namespace Server.Data
         }
     }
     #endregion
+    #region Monster
+    [Serializable]
+    public class RewardData
+    {
+
+    }
+    public class MonsterData
+    {
+        public int id;
+        public string name;
+        public StatInfo stat;
+
+    }
+    [Serializable]
+    public class MonsterLoader : ILoader<int, StatInfo>
+    {
+        public List<StatInfo> stats = new List<StatInfo>();
+        public Dictionary<int, StatInfo> MakeDict()
+        {   // ToDictionary() 사용해보기    
+            Dictionary<int, StatInfo> dict = new Dictionary<int, StatInfo>();
+            foreach (StatInfo stat in stats)
+            {
+                stat.Hp = stat.MaxHp;
+                stat.Mp = stat.MaxMp;
+                dict.Add(stat.Level, stat);
+            }
+            return dict;
+        }
+    }
+    #endregion
 }

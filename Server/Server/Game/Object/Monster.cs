@@ -4,21 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Google.Protobuf.Protocol;
+using Server.Data;
 
 namespace Server.Game
 {
-    internal class Monster : GameObject
+    public class Monster : GameObject
     {
+        public int TemplateId { get; private set; }
         public Monster()
         {
             ObjectType = GameObjectType.Monster;
 
-            // TEMP
-            StatInfo.Level = 1;
-            StatInfo.Hp = 100;
-            StatInfo.MaxHp = 100;
-            StatInfo.Speed = 5.0f;
-
+            
+        }
+        public void Init(int templateId)
+        {
+            TemplateId = templateId;
+            MonsterData monsterData = null;
+            DataManager.MonsterDict.TryGetValue(TemplateId, out monsterData);
+            StatInfo.MergeFrom(monsterData.stat);
+            StatInfo.Hp = monsterData.stat.MaxHp;
             State = CreatureState.Idle;
         }
 
@@ -185,6 +190,29 @@ namespace Server.Game
         protected virtual void UpdateDead()
         {
 
+        }
+        public override void OnDead(GameObject attacker)
+        {
+            base.OnDead(attacker);
+
+            // TODO : 아이템 생성
+
+        }
+        RewardData GetRandomReward()
+        {
+            MonsterData monsterData = null;
+            DataManager.MonsterDict.TryGetValue(TemplateId, out monsterData);
+
+            int rand = new Random().Next(0, 101);
+            int sum = 0;
+            foreach(RewardData rewardData in monsterData.rewards)
+            {
+                sum += rewardData.probability;
+                if(rand <= sum)
+                {
+                    return rewardData;
+                }
+            }
         }
     }
 }

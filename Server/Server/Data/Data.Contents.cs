@@ -115,27 +115,28 @@ namespace Server.Data
     [Serializable]
     public class RewardData
     {
-
+        public int probability; // 100분율
+        public int itemId;
+        public int count;
     }
+    [Serializable]
     public class MonsterData
     {
         public int id;
         public string name;
         public StatInfo stat;
-
+        public List<RewardData> rewards;
     }
     [Serializable]
-    public class MonsterLoader : ILoader<int, StatInfo>
+    public class MonsterLoader : ILoader<int, MonsterData>
     {
-        public List<StatInfo> stats = new List<StatInfo>();
-        public Dictionary<int, StatInfo> MakeDict()
+        public List<MonsterData> monsters = new List<MonsterData>();
+        public Dictionary<int, MonsterData> MakeDict()
         {   // ToDictionary() 사용해보기    
-            Dictionary<int, StatInfo> dict = new Dictionary<int, StatInfo>();
-            foreach (StatInfo stat in stats)
+            Dictionary<int, MonsterData> dict = new Dictionary<int, MonsterData>();
+            foreach (MonsterData monster in monsters)
             {
-                stat.Hp = stat.MaxHp;
-                stat.Mp = stat.MaxMp;
-                dict.Add(stat.Level, stat);
+                dict.Add(monster.id, monster);
             }
             return dict;
         }

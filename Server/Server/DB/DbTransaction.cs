@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf.Protocol;
 using Microsoft.EntityFrameworkCore;
+using Server.Data;
 using Server.Game;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,50 @@ namespace Server.DB
         public static void SavePlayerSatus_Step3(int hp)
         {
             Console.WriteLine($"Hp Saved{hp}");
+        }
+        public static void RewardPlayer(Player player, RewardData rewardData, GameRoom room)
+        {
+            if (player == null || room == null || rewardData == null)
+                return;
+
+            // TODO : Problem
+            int? slot = player.Inven.GetEmptySlot();
+            if (slot == null)
+                return;
+
+            ItemDb itemDb = new ItemDb()
+            {
+                TemplateId = rewardData.itemId,
+                Count = rewardData.count,
+                Slot = slot.Value,
+                OwnerDbId = player.PlayerDbId
+            };
+
+            Instance.Push(() =>
+            {
+                using (AppDbContext db = new AppDbContext())
+                {
+                    db.Items.Add(itemDb);
+                    if (db.SaveChangesEx())
+                    {
+                        room.Push(() => 
+                        {
+                            Item newItem = Item.MakeItem(itemDb);
+                            player.Inven.Add(newItem);
+
+                            // TODO : Client Noti
+                            {
+                                S2C_AddItem itemPacket = new S2C_AddItem();
+                                ItemInfo itemInfo = new ItemInfo();
+                                itemInfo.MergeFrom(newItem.Info);
+                                itemPacket.Items.Add(itemInfo);
+
+                                player.Session.Send(itemPacket);
+                            }
+                        });
+                    }
+                }
+            });
         }
     }
 }

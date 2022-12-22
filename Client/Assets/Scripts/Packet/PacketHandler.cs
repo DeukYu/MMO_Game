@@ -144,8 +144,8 @@ class PacketHandler
     {
         S2C_ItemList itemListPacket = (S2C_ItemList)packet;
 
-        UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
-        UI_Inventory invenUI = gameSceneUI.InvenUI;
+        //UI_GameScene gameSceneUI = Managers.UI.SceneUI as UI_GameScene;
+        //UI_Inventory invenUI = gameSceneUI.InvenUI;
 
         Managers.Inven.Clear();
         // 메모리에 아이템 정보 적용
@@ -155,8 +155,22 @@ class PacketHandler
             Managers.Inven.Add(item);
             //Debug.Log($"{item.TemplateId} : {item.Count}");
         }
-        // UI에서 표시
-        invenUI.gameObject.SetActive(true);
-        invenUI.RefreshUI();
+        //// UI에서 표시
+        //invenUI.gameObject.SetActive(true);
+        //invenUI.RefreshUI();
+    }
+    public static void S2C_AddItemHandler(PacketSession session, IMessage packet)
+    {
+        S2C_AddItem itemListPacket = (S2C_AddItem)packet;
+
+        Managers.Inven.Clear();
+        // 메모리에 아이템 정보 적용
+        foreach (ItemInfo itemInfo in itemListPacket.Items)
+        {
+            Item item = Item.MakeItem(itemInfo);
+            Managers.Inven.Add(item);
+        }
+
+        Debug.Log("아이템을 획득");
     }
 }

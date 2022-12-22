@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Google.Protobuf.Protocol;
 using Server.Data;
+using Server.DB;
 
 namespace Server.Game
 {
@@ -195,8 +196,18 @@ namespace Server.Game
         {
             base.OnDead(attacker);
 
-            // TODO : 아이템 생성
+            GameObject owner = attacker.GetOwner();
 
+            if(owner.ObjectType == GameObjectType.Player)
+            {
+                RewardData rewardData = GetRandomReward();
+                if(rewardData != null)
+                {
+                    Player player = (Player)owner;
+
+                    DbTransaction.RewardPlayer(player, rewardData, Room);
+                }
+            }
         }
         RewardData GetRandomReward()
         {
@@ -213,6 +224,7 @@ namespace Server.Game
                     return rewardData;
                 }
             }
+            return null;
         }
     }
 }

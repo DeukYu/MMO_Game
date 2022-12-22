@@ -24,6 +24,7 @@ enum MsgId {
   S2C_CHANGE_HP = 16;
   S2C_DIE = 17;
   S2C_ITEMLIST = 18;
+  S2C_ADD_ITEM = 19;
 }
 
 enum CreatureState{
@@ -206,5 +207,9 @@ message S2C_Skill{
 }
 
 message S2C_ItemList{
+	repeated ItemInfo items = 1;
+}
+
+message S2C_AddItem{
 	repeated ItemInfo items = 1;
 }
